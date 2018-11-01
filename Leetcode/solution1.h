@@ -44,7 +44,7 @@ public:
 
 // ×Ó¼¯
 // https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/49/backtracking/94/
-class Solution {
+class Solution02 {
 public:
 	void getSubSets(vector<vector<int>> &res, vector<int> nums, int begin, vector<int> pre) {
 		res.push_back(pre);
@@ -63,5 +63,60 @@ public:
 		if (nums.size() == 0) return res;
 		getSubSets(res, nums, 0, nullVec);
 		return res;
+	}
+};
+
+// µ¥´ÊËÑË÷
+// https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/49/backtracking/95/
+class Solution {
+public:
+	bool findIt(string s_sub, vector<vector<char>> board, int i, int j, int begin, bool* visited) {
+		if (i < 0 || i >= board.size() || j < 0 || j >= board[i].size()) {
+			return false;
+		}
+		int col = board[i].size();
+		if (visited[i*col + j] == true) return false;
+
+		if (begin >= s_sub.size()) return false;
+		else if (begin == s_sub.size() - 1) {
+			return board[i][j] == s_sub[begin];
+		}
+		if (board[i][j] != s_sub[begin]) {
+			return false;
+		}
+
+		bool flag = false;
+		
+		visited[i*col + j] = true;
+		flag = flag || findIt(s_sub, board, i - 1, j, begin + 1, visited);
+		flag = flag || findIt(s_sub, board, i, j - 1, begin + 1, visited);
+		flag = flag || findIt(s_sub, board, i + 1, j, begin + 1, visited);
+		flag = flag || findIt(s_sub, board, i, j + 1, begin + 1, visited);
+		if (flag) {
+			return true;
+		}
+		else {
+			visited[i*col + j] = false;
+			return false;
+		}
+	}
+
+	bool exist(vector<vector<char>>& board, string word) {
+		if (word == "") return false;
+		if (board.empty() || board.size() == 0) return false;
+
+		int raw = board.size(), col = board[0].size();
+		bool* visited = new bool[raw*col];
+
+		for (int i = 0; i < board.size(); i++)
+		{
+			for (int j = 0; j < board[i].size(); j++)
+			{
+				if (board[i][j] == word[0]) {
+					if (findIt(word, board, i, j, 0, visited) == true) return true;
+				}
+			}
+		}
+		return false;
 	}
 };
