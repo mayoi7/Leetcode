@@ -152,7 +152,7 @@ public:
 
 // 前K个高频元素
 // https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/50/sorting-and-searching/97/
-class Solution {
+class Solution05 {
 public:
 	vector<int> topKFrequent(vector<int>& nums, int k) {
 		unordered_map<int, int> m;
@@ -164,5 +164,23 @@ public:
 			res.push_back(q.top().second); q.pop();
 		}
 		return res;
+	}
+};
+
+// 数组中的第K个最大元素
+// https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/50/sorting-and-searching/98/
+class Solution06 {
+public:
+	int findKthLargest(vector<int>& nums, int k) {
+		priority_queue<int> q;
+		for (int i = 0; i < nums.size(); i++)
+		{
+			q.push(nums[i]);
+		}
+		for (int i = 0; i < k - 1; i++)
+		{
+			q.pop();
+		}
+		return q.top();
 	}
 };
