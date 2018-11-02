@@ -184,3 +184,97 @@ public:
 		return q.top();
 	}
 };
+
+// 寻找峰值
+// https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/50/sorting-and-searching/99/
+class Solution07 {
+public:
+	int findPeakElement(const vector<int> &num) {
+		if (num.size() == 0) return 0;
+
+		int start = 0;
+		int end = num.size() - 1;
+
+		while (start <= end)
+		{
+			if (start == end) return start;
+
+			int mid = start + (end - start) / 2;
+
+			if (num[mid] < num[mid + 1])
+			{
+				start = mid + 1;
+			}
+			else
+			{
+				end = mid;
+			}
+		}
+	}
+};
+
+// 在排序数组中查找元素的第一个和最后一个位置
+// https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/50/sorting-and-searching/100/
+class Solution08 {
+public:
+	void findStart(vector<int> nums, int lo, int hi, int target, int& start, int& end) {
+		while (lo <= hi) {
+			int mid = (lo + hi) / 2; 
+			if (lo == hi) {
+				if (nums[lo] == target) {
+					start = lo;
+					end = lo;
+				}
+				else {
+					start = -1;
+					end = -1;
+				}
+				return;
+			}
+			if (nums[mid] > target) {
+				hi = mid;
+			}
+			else if (nums[mid] < target) {
+				lo = mid + 1;
+			}
+			else {
+				for (int i = mid - 1; i >= 0; i--)
+				{
+					if (nums[i] != target) {
+						start = i + 1;
+						break;
+					}
+				}
+	
+				for (int i = mid + 1; i < nums.size(); i++)
+				{
+					if (nums[i] != target) {
+						end = i - 1;
+						break;
+					}	
+				}
+				return;
+			}
+		}
+	}
+
+	vector<int> searchRange(vector<int>& nums, int target) {
+		vector<int> res = { -1,-1 };
+		if (nums.size() <= 0) return res;
+		else if (nums.size() == 1) {
+			if (nums[0] == target) {
+				res[0] = 0;
+				res[1] = 0;
+			}
+			return res;
+		}
+		int s = 0, e = nums.size();
+		
+		findStart(nums, 0, nums.size(), target, s, e);
+		if (nums[0] == target) s = 0;
+		if (*(nums.end() - 1) == target) e = nums.size() - 1;
+		res[0] = s;
+		res[1] = e;
+		return res;
+	}
+};
