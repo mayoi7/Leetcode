@@ -68,7 +68,7 @@ public:
 
 // 单词搜索
 // https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/49/backtracking/95/
-class Solution {
+class Solution03 {
 public:
 	bool findIt(string s_sub, vector<vector<char>> board, int i, int j, int begin, bool* visited) {
 		if (i < 0 || i >= board.size() || j < 0 || j >= board[i].size()) {
@@ -118,5 +118,51 @@ public:
 			}
 		}
 		return false;
+	}
+};
+
+// 颜色分类
+// https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/50/sorting-and-searching/96/
+class Solution04 {
+public:
+	void sortColors(vector<int>& nums) {
+		int k = 0;
+		int cnt = 0;
+		if (nums.size() <= 1) return;
+		for (int i = 0; i < nums.size(); i++)
+		{
+			if (nums[i] == 0) {
+				nums[k] = 0;
+				++k;
+			}
+			else if (nums[i] == 1) {
+				++cnt;
+			}
+		}
+		for (int i = 0; i < cnt; i++)
+		{
+			nums[k + i] = 1;
+		}
+		for (int i = k + cnt; i < nums.size(); i++)
+		{
+			nums[i] = 2;
+		}
+	}
+};
+
+// 前K个高频元素
+// https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/50/sorting-and-searching/97/
+class Solution {
+public:
+	vector<int> topKFrequent(vector<int>& nums, int k) {
+		unordered_map<int, int> m;
+		priority_queue<pair<int, int>> q;
+		vector<int> res;
+		for (auto a : nums) ++m[a];
+		for (auto it : m) q.push({ it.second, it.first });
+		for (int i = 0; i < k; ++i) {
+			res.push_back(q.top().second); q.pop();
+		}
+		return res;
 	}
 };
