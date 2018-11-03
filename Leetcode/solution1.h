@@ -295,7 +295,7 @@ struct cmp
 	}
 };
 
-class Solution {
+class Solution09 {
 public:
 	Interval* cmpr(Interval& a, Interval& b) {	// a.start < b.start
 		if (b.end < a.end) {
@@ -338,5 +338,93 @@ public:
 			}
 		}
 		return res;
+	}
+};
+
+//ËÑË÷Ðý×ªÅÅÐòÊý×é
+// https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/50/sorting-and-searching/102/
+class Solution10 {
+public:
+	int halfSearch(vector<int> nums,int target, int lo, int hi) {
+		while (lo <= hi) {
+			if (lo == hi) return nums[lo] == target ? lo : -1;
+			int mid = (lo + hi) / 2;
+			if (nums[mid] == target) return mid;
+			else if (nums[mid] < target) lo = mid + 1;
+			else hi = mid;
+		}
+		return -1;
+	}
+
+	int search(vector<int>& nums, int target) {
+		int hi = nums.size();
+		if (hi == 0) return -1;
+		else if (hi == 1) return nums[0] == target ? 0 : -1;
+		if (nums[0] == target) return 0;
+		if (nums[hi - 1] == target) return hi - 1;
+
+		int lo = 0;
+		if (nums[hi - 1] > target) {
+			if (nums[lo] < target) {
+				return halfSearch(nums, target, lo, hi);
+			}
+			else {
+				int tHi = hi;
+				int tLo = lo;
+				while (tLo <= tHi) {
+					if (tLo == tHi) {
+						if (nums[tLo] > target) return -1;
+						lo = tLo;
+						break;
+					}
+					int tMid = (tLo + tHi) / 2;
+					if (nums[tMid] == target) return tMid;
+					else if (nums[tMid] > target) {
+						if (nums[tMid] <= nums[hi - 1]) {
+							hi = tMid;
+							tHi = tMid;
+						}
+						else {
+							tLo = tMid + 1;
+						}
+					}
+					else {
+						lo = tMid;
+						break;
+					}
+				}
+				return halfSearch(nums, target, lo, hi);
+			}
+		}
+		else {
+			if (nums[lo] > target) return -1;
+			else {
+				int tLo = lo;
+				int tHi = hi;
+				while (tLo <= tHi) {
+					if (tLo == tHi) {
+						if (nums[tLo] > target) return -1;
+						hi = tLo;
+						break;
+					}
+					int tMid = (tLo + tHi) / 2;
+					if (nums[tMid] == target) return tMid;
+					else if (nums[tMid] > target) {
+						hi = tHi;
+						break;
+					}
+					else {
+						if (nums[tMid] <= nums[hi - 1]) {
+							tHi = tMid;
+						}
+						else {
+							lo = tMid + 1;
+							tLo = tMid + 1;
+						}
+					}
+				}
+				return halfSearch(nums, target, lo, hi);
+			}
+		}
 	}
 };
