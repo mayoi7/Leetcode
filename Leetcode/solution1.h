@@ -278,3 +278,65 @@ public:
 		return res;
 	}
 };
+
+// 合并区间
+// https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/50/sorting-and-searching/101/
+struct Interval {
+	int start;
+	int end;
+	Interval() : start(0), end(0) {}
+	Interval(int s, int e) : start(s), end(e) {}
+};
+
+struct cmp
+{
+	bool operator() (Interval a, Interval b) {
+		return a.start > b.start;
+	}
+};
+
+class Solution {
+public:
+	Interval* cmpr(Interval& a, Interval& b) {	// a.start < b.start
+		if (b.end < a.end) {
+			return &a;
+		}
+		else
+		{
+			if (b.start > a.end) {
+				return NULL;
+			}
+			Interval* temp = new Interval(a.start, b.end);
+			return temp;
+		}
+	}
+
+	vector<Interval> merge(vector<Interval>& intervals) {
+		priority_queue<Interval, vector<Interval>, cmp> q;
+		vector<Interval> res;
+		for (int i = 0; i < intervals.size(); i++)
+		{
+			q.push(intervals[i]);
+		}
+		while (!q.empty())
+		{
+			Interval a = q.top();
+			q.pop();
+			if (q.empty()) {
+				res.push_back(a);
+				break;
+			}
+			Interval b = q.top();
+
+			Interval* t = cmpr(a, b);
+			if (t == NULL) {
+				res.push_back(a);
+			}
+			else {
+				q.pop();
+				q.push(*t);
+			}
+		}
+		return res;
+	}
+};
