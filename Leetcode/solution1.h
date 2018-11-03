@@ -448,3 +448,51 @@ public:
 	}
 };
 
+// ÌøÔ¾ÓÎÏ·
+// https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/51/dynamic-programming/104/
+class Solution {
+public:
+	unordered_map<int, int> uMap;
+	int len = 0;
+
+	bool canJ(vector<int> nums, int start) {
+		if (start >= len - 1) return true;
+		if (nums[start] == 1) {
+			if (canJ(nums, start + 1)) return true;
+			else {
+				uMap[start] = 1;
+				return false;
+			}
+		}
+
+		int maxJump = start + nums[start];
+		if (maxJump >= nums.size() - 1) {
+			return true;
+		}
+		if (nums[start] == 0) {
+			uMap[start] = 1;
+			return false;
+		}
+		for (int i = nums[start]; i >= 1; i--)
+		{
+			int target = start + i;
+			if (uMap.find(target) != uMap.end() ) {
+				uMap[start] = 1;
+				return false;
+			}
+			if (canJ(nums, target) == true) {
+				return true;
+			}
+			else {
+				uMap[start] = 1;
+			}
+		}
+		return false;
+	}
+
+	bool canJump(vector<int>& nums) {
+		if (nums.size() == 0) return true;
+		len = nums.size();
+		return canJ(nums, 0);
+	}
+};
