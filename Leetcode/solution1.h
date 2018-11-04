@@ -450,7 +450,7 @@ public:
 
 // 跳跃游戏
 // https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/51/dynamic-programming/104/
-class Solution {
+class Solution12 {
 public:
 	unordered_map<int, int> uMap;
 	int len = 0;
@@ -494,5 +494,28 @@ public:
 		if (nums.size() == 0) return true;
 		len = nums.size();
 		return canJ(nums, 0);
+	}
+};
+
+// 不同路径
+// https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/51/dynamic-programming/105/
+class Solution13 {
+public:
+	int uniquePaths(int m, int n) {
+		if (m == 0 || n == 0) return 0;
+		if (m == 1 && n == 1) return 1;
+		int a[105][105] = { 0 };
+		for (int i = m - 2; i >= 0; i--) {
+			a[i][n - 1] = 1;
+		}
+		for (int j = n - 2; j >= 0; j--) {
+			a[m - 1][j] = 1;
+		}
+		for (int i = m - 2; i >= 0; i--) {
+			for (int j = n - 2; j >= 0; j--) {
+				a[i][j] = a[i + 1][j] + a[i][j + 1];
+			}
+		}
+		return a[0][0];
 	}
 };
