@@ -519,3 +519,56 @@ public:
 		return a[0][0];
 	}
 };
+
+// 零钱兑换
+// https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/51/dynamic-programming/106/
+// source add: https://blog.csdn.net/qq_22080999/article/details/80860182
+class Solution14 {
+public:
+	int coinChange(vector<int>& coins, int amount) {
+		vector<int> dp;
+		//初始化，-1表示这个金额的最优解没有
+		for (int i = 0; i <= amount; ++i)
+			dp.push_back(-1);
+
+		dp[0] = 0;
+
+		for (int i = 1; i <= amount; ++i)//递推金额，从1元到amount元
+		{
+			for (int j = 0; j < coins.size(); ++j)//循环面值数组
+			{//如果现在这个金额大于等于现在的面值的话，并且，差值是一个最优解可达的金额，那么接下来就要更新当前金额钞票张数了
+				if (i - coins[j] >= 0 && dp[i - coins[j]] != -1)
+				{//如果这个金额是第一次循环到，等于-1,或者已经有了钞票张数，但是这个张数更大，那么就用更小的张数代替
+					if (dp[i] == -1 || dp[i] > dp[i - coins[j]] + 1)
+						dp[i] = dp[i - coins[j]] + 1;
+				}
+			}
+		}
+
+		return dp[amount];
+	}
+};
+
+// Longest Increasing Subsequence
+// https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/51/dynamic-programming/107/
+class Solution15 {
+public:
+	int lengthOfLIS(vector<int>& nums) {
+		if (nums.size() <= 1) return nums.size();
+		vector<int> a(nums.size(), 1);
+
+		int maxN = 1;
+		for (int i = 1; i < nums.size(); i++)
+		{
+			a[i] = 1;
+			for (int j = 0; j < i; j++)
+			{
+				if (nums[i] > nums[j]) {
+					a[i] = a[i] < a[j] + 1 ? a[j] + 1 : a[i];
+				}
+			}
+			if (a[i] > maxN) maxN = a[i];
+		}
+		return maxN;
+	}
+};
