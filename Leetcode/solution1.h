@@ -572,3 +572,62 @@ public:
 		return maxN;
 	}
 };
+
+//class RandomizedSet {
+//public:
+//	vector<int> nums;
+//	int hashset[10086] = { 0 };
+//	/** Initialize your data structure here. */
+//	RandomizedSet() {
+//		
+//	}
+//
+//	/** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+//	bool insert(int val) {
+//		if (hashset[val % 10086] != 0) return false;
+//		hashset[val % 10086] = val / 10086 + 1;
+//		nums.push_back(val);
+//		return true;
+//	}
+//
+//	/** Removes a value from the set. Returns true if the set contained the specified element. */
+//	bool remove(int val) {
+//		if (hashset[val % 10086] == 0) return false;
+//		else 
+//	}
+//
+//	int makeRondom() {
+//		
+//	}
+//
+//	/** Get a random element from the set. */
+//	int getRandom() {
+//		
+//	}
+//};
+
+// ¿ìÀÖÊı
+// https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/53/math/112/
+class Solution16 {
+public:
+	set<int> nset = { 0 };
+
+	bool isHappy(int n) {
+		if (n == 1) return true;
+		if (nset.find(n) != nset.end()) {	// loop exist
+			return false;
+		}
+		nset.insert(n);
+		return isHappy(getAllSiteSum(n));
+	}
+
+	int getAllSiteSum(int n) {
+		int sum = 0;
+		while (n) {
+			int k = n % 10;
+			sum += k * k;
+			n /= 10;
+		}
+		return sum;
+	}
+};
