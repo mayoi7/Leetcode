@@ -649,7 +649,7 @@ public:
 };
 
 // 67. Add Binary
-class Solution {
+class Solution18 {
 public:
 	string addBinary(string a, string b) {
 		int len1 = a.size();
@@ -685,5 +685,22 @@ public:
 			a1.insert(a1.begin(), '1');
 		}
 		return a1;
+	}
+};
+
+// 69. Sqrt(x)
+class Solution {
+public:
+	int mySqrt(int x) {
+		if (x < 2) return x;
+		int res = 0;
+		for (int i = 1; i <= x/2 + 1; i++)
+		{
+			long long t = (long long)i * i;
+			if (t > x) return res;
+			else if (t == x)return i;
+			else res = i;
+		}
+		return -1;
 	}
 };
