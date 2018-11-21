@@ -631,3 +631,19 @@ public:
 		return sum;
 	}
 };
+
+// ½×³ËºóµÄÁã
+// https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/53/math/113/
+class Solution {
+public:
+	long a[15] = { 1,5,25,125,625,3125,15625,78125,390625,1953125,9765625,48828125,244140625 };
+
+	int trailingZeroes(int n) {
+		return getFiveCount(n);
+	}
+
+	int getFiveCount(int n) {
+		if (n < 5) return 0;
+		else return n / 5 + getFiveCount(n / 5);
+	}
+};
