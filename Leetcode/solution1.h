@@ -634,7 +634,7 @@ public:
 
 // ½×³ËºóµÄÁã
 // https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium/53/math/113/
-class Solution {
+class Solution17 {
 public:
 	long a[15] = { 1,5,25,125,625,3125,15625,78125,390625,1953125,9765625,48828125,244140625 };
 
@@ -645,5 +645,45 @@ public:
 	int getFiveCount(int n) {
 		if (n < 5) return 0;
 		else return n / 5 + getFiveCount(n / 5);
+	}
+};
+
+// 67. Add Binary
+class Solution {
+public:
+	string addBinary(string a, string b) {
+		int len1 = a.size();
+		int len2 = b.size();
+		int c = 0;
+		string a1;
+		string b1;
+		if (len1 > len2) {
+			a1 = a;
+			b1 = b;
+		}
+		else {
+			b1 = a;
+			a1 = b;
+			swap(len1, len2);
+		}
+
+		for (int i = 1; i <= len1; i++)
+		{
+			int sum = (a1[len1 - i] - '0') + c;
+			if (i <= len2) {
+				sum += (b1[len2 - i] - '0');
+			}
+			if (sum > 1) {
+				c = 1;
+				sum %= 2;
+			}
+			else c = 0;
+
+			a1[len1 - i] = (sum + '0');
+		}
+		if (c > 0) {
+			a1.insert(a1.begin(), '1');
+		}
+		return a1;
 	}
 };
