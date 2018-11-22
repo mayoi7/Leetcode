@@ -859,7 +859,7 @@ public:
 };
 
 // 111. Minimum Depth of Binary Tree
-class Solution {
+class Solution24 {
 public:
 
 	int depth(TreeNode* root) {
@@ -874,5 +874,15 @@ public:
 	int minDepth(TreeNode* root) {
 		if (root == NULL) return 0;
 		else return depth(root);
+	}
+};
+
+// 112. Path Sum
+class Solution {
+public:
+	bool hasPathSum(TreeNode* root, int sum) {
+		if (root == NULL) return false;
+		if (root->left == NULL && root->right == NULL) return sum == root->val;
+		return hasPathSum(root->left, sum - root->val) || hasPathSum(root->right, sum - root->val);
 	}
 };
