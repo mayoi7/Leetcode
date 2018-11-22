@@ -738,7 +738,7 @@ struct TreeNode {
 	TreeNode *right;
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
-class Solution {
+class Solution21 {
 public:
 	vector<int> pv;
 	vector<int> mv;
@@ -798,5 +798,45 @@ public:
 		midtrl(p);
 		flag = checkmid(q);
 		return flag;
+	}
+};
+
+// 107. Binary Tree Level Order Traversal II
+class Solution {
+public:
+	vector<vector<int>> levelOrderBottom(TreeNode* root) {
+		vector<vector<int>> res;
+		if (root == NULL) return res;
+
+		stack<vector<TreeNode*>> stc;
+		queue<TreeNode*> tree;
+
+		tree.push(root);
+		while (!tree.empty()) {
+			vector<TreeNode*> temp;
+			while (!tree.empty()) {
+				temp.push_back(tree.front());
+				tree.pop();
+			}
+			stc.push(temp);
+			int len = temp.size();
+			for (int i = 0; i < len; i++)
+			{
+				if (temp[i]->left != NULL) tree.push(temp[i]->left);
+				if (temp[i]->right != NULL) tree.push(temp[i]->right);
+			}
+		}
+		while (!stc.empty()) {
+			vector<TreeNode*> temp = stc.top();
+			vector<int> vals;
+			int len = temp.size();
+			for (int i = 0; i < len; i++)
+			{
+				vals.push_back(temp[i]->val);
+			}
+			res.push_back(vals);
+			stc.pop();
+		}
+		return res;
 	}
 };
