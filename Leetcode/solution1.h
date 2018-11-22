@@ -802,7 +802,7 @@ public:
 };
 
 // 107. Binary Tree Level Order Traversal II
-class Solution {
+class Solution22 {
 public:
 	vector<vector<int>> levelOrderBottom(TreeNode* root) {
 		vector<vector<int>> res;
@@ -838,5 +838,22 @@ public:
 			stc.pop();
 		}
 		return res;
+	}
+};
+
+// 110. Balanced Binary Tree
+class Solution23 {
+public:
+	int depth(TreeNode* root) {
+		if (root == NULL) return 0;
+		int left = depth(root->left);
+		int right = depth(root->right);
+		return max(left, right) + 1;
+	}
+
+	bool isBalanced(TreeNode* root) {
+		if (root == NULL) return true;
+		if (abs(depth(root->left) - depth(root->right)) > 1) return false; 
+		else return isBalanced(root->left) && isBalanced(root->right);
 	}
 };
