@@ -689,7 +689,7 @@ public:
 };
 
 // 69. Sqrt(x)
-class Solution {
+class Solution19 {
 public:
 	int mySqrt(int x) {
 		if (x < 2) return x;
@@ -713,7 +713,7 @@ struct ListNode {
 	ListNode(int x) : val(x), next(NULL) {}
 };
 
-class Solution {
+class Solution20 {
 public:
 	ListNode * deleteDuplicates(ListNode* head) {
 		if (head == NULL || head->next == NULL) return head;
@@ -728,5 +728,75 @@ public:
 		}
 		p->next = node;
 		return head;
+	}
+};
+
+// 100. Same Tree
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+class Solution {
+public:
+	vector<int> pv;
+	vector<int> mv;
+	int index = 0;
+
+	void pretrl(TreeNode* root) {
+		pv.push_back(root->val);
+		if (root->left != NULL) pretrl(root->left);
+		else pv.push_back('#');
+		if (root->right != NULL) pretrl(root->right);
+		else pv.push_back('$');
+	}
+
+	bool checkpre(TreeNode* root) {
+		if (pv[index] != root->val) return false;
+		++index;
+		bool f1 = true, f2 = true;
+		if(root->left != NULL) f1 = checkpre(root->left);
+		else {
+			f1 = (pv[index++] == '#');
+		}
+		if (root->right != NULL) f2 = checkpre(root->right);
+		else {
+			f2 = (pv[index++] == '$');
+		}
+		return f1 && f2;
+	}
+
+	void midtrl(TreeNode* root) {
+		if (root->left != NULL) midtrl(root->left);
+		else mv.push_back('#');
+
+		mv.push_back(root->val);
+		if (root->right != NULL) midtrl(root->right);
+		else mv.push_back('$');
+	}
+
+	bool checkmid(TreeNode* root) {
+		bool f1 = true, f2 = true;
+		if (root->left != NULL) f1 = checkmid(root->left);
+		else f1 = (mv[index++] == '#');
+		if (mv[index] != root->val) return false;
+		++index;
+		if (root->right != NULL) f2 = checkmid(root->right);
+		else f2 = (mv[index++] == '$');
+		return f1 && f2;
+	}
+
+	bool isSameTree(TreeNode* p, TreeNode* q) {
+		if (p == NULL) return q == NULL;
+		if (q == NULL) return false;
+		index = 0;
+		pretrl(p);
+		bool flag = checkpre(q);
+		if (!flag) return false;
+		index = 0;
+		midtrl(p);
+		flag = checkmid(q);
+		return flag;
 	}
 };
