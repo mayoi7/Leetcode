@@ -878,11 +878,57 @@ public:
 };
 
 // 112. Path Sum
-class Solution {
+class Solution25 {
 public:
 	bool hasPathSum(TreeNode* root, int sum) {
 		if (root == NULL) return false;
 		if (root->left == NULL && root->right == NULL) return sum == root->val;
 		return hasPathSum(root->left, sum - root->val) || hasPathSum(root->right, sum - root->val);
+	}
+};
+
+// 168. Excel Sheet Column Title
+class Solution26 {
+public:
+	string convertToTitle(int n) {
+		string a = "";
+		int site = 0;
+
+		while (n) {
+			site = (n - 1) % 26;
+			a += (site + 'A');
+			n = (n - 1) / 26;
+		}
+
+		string b = "";
+		int len = a.size();
+		for (int i = 0; i < len; i++)
+		{
+			b += (a[len - i - 1]);
+		}
+		return b;
+	}
+};
+
+// 169. Majority Element
+class Solution27 {
+public:
+	int majorityElement(vector<int>& nums) {
+		int len = nums.size();
+		int cnt = 1;
+		int num = nums[0];
+
+		for (int i = 1; i < len; i++)
+		{
+			if (nums[i] == num) ++cnt;
+			else if (cnt <= 1) {
+				cnt = 1;
+				num = nums[i];
+			}
+			else {
+				--cnt;
+			}
+		}
+		return num;
 	}
 };
