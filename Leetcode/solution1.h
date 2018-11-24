@@ -950,7 +950,7 @@ public:
 };
 
 // 203. Remove Linked List Elements
-class Solution {
+class Solution29 {
 public:
 	ListNode * removeElements(ListNode* head, int val) {
 		while (head && head->val == val) {
@@ -972,5 +972,39 @@ public:
 			}
 		}
 		return head;
+	}
+};
+
+// 219. Contains Duplicate II
+class Solution {
+public:
+	bool containsNearbyDuplicate(vector<int>& nums, int k) {
+		unordered_map<int, int> mp;
+		int len = nums.size();
+		if (len <= 1 || k == 0) return false;
+
+		for (int j = 1; j < k + 1 && j < len; j++) {
+			if (nums[j] == nums[0]) return true;
+			else {
+				mp[nums[j]] = j;
+			}
+		}
+
+		for (int i = 1; i < len - 1; i++)
+		{
+			auto site = mp.find(nums[i]);
+			if (site != mp.end() && (*site).second != i) {
+				return true;
+			}
+			if (i + k >= len) continue;
+			else {
+				int maxL = i + k;
+				if (nums[maxL] == nums[i]) return true;
+				else {
+					mp[nums[maxL]] = maxL;
+				}
+			}
+		}
+		return false;
 	}
 };
