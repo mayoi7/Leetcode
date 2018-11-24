@@ -932,3 +932,19 @@ public:
 		return num;
 	}
 };
+
+// 171. Excel Sheet Column Number
+class Solution {
+public:
+	int titleToNumber(string s) {
+		int len = s.size();
+		if (len == 1) return s[0] - 'A' + 1;
+		int sum = s[len - 1] - 'A' + 1;
+		int cnt = 1;
+		for (int i = len - 2; i >= 0; i--,cnt*=26)
+		{
+			sum += ((s[i] - 'A' + 1) * cnt * 26);
+		}
+		return sum;
+	}
+};
