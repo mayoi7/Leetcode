@@ -1134,3 +1134,23 @@ public:
 		return root;
 	}
 };
+
+// 231. Power of Two
+class Solution {
+public:
+	bool isPowerOfTwo(int n) {
+		if (n == 0) return false;
+		else if (n == 1) return true;
+		else if (n == 2) return true;
+
+		if (n & 1 == 1) return false;
+		long long k = 2;
+		for (int i = 0; i < 40; i++)
+		{
+			k = (k << 1);
+			if (k == n) return true;
+			if (k > n) return false;
+		}
+		return false;
+	}
+};
