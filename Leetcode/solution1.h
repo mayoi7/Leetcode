@@ -934,7 +934,7 @@ public:
 };
 
 // 171. Excel Sheet Column Number
-class Solution {
+class Solution28 {
 public:
 	int titleToNumber(string s) {
 		int len = s.size();
@@ -946,5 +946,31 @@ public:
 			sum += ((s[i] - 'A' + 1) * cnt * 26);
 		}
 		return sum;
+	}
+};
+
+// 203. Remove Linked List Elements
+class Solution {
+public:
+	ListNode * removeElements(ListNode* head, int val) {
+		while (head && head->val == val) {
+			head = head->next;
+		}
+		if (head == NULL) return NULL;
+
+		ListNode* pre = head;
+		ListNode* node = head->next;
+		while (node) {
+			if (node->val == val) {
+				pre->next = pre->next->next;
+				ListNode* t = node;
+				node = node->next;
+				free(t);
+			} else { 
+				node = node->next; 
+				pre = pre->next;
+			}
+		}
+		return head;
 	}
 };
