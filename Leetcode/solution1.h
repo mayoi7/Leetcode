@@ -976,7 +976,7 @@ public:
 };
 
 // 219. Contains Duplicate II
-class Solution {
+class Solution30 {
 public:
 	bool containsNearbyDuplicate(vector<int>& nums, int k) {
 		unordered_map<int, int> mp;
@@ -1006,5 +1006,116 @@ public:
 			}
 		}
 		return false;
+	}
+};
+
+// 225. Implement Stack using Queues
+class MyStack {
+public:
+	queue<int> q1, q2;
+	int ptr = 0;
+
+	/** Initialize your data structure here. */
+	MyStack() {
+		ptr = 0;
+	}
+
+	/** Push element x onto stack. */
+	void push(int x) {
+		if (ptr == 0) {
+			while(!q1.empty()) {
+				int t = q1.front();
+				q2.push(t);
+				q1.pop();
+			}
+			q1.push(x);
+		}
+		else {
+			while (!q2.empty()) {
+				int t = q2.front();
+				q1.push(t);
+				q2.pop();
+			}
+			q2.push(x);
+		}
+	}
+
+	/** Removes the element on top of the stack and returns that element. */
+	int pop() {
+		if (ptr == 0) {
+			if (!q1.empty()) {
+				int t = q1.front();
+				q1.pop();
+				return t;
+			}
+			else {
+				while (q2.size() > 1) {
+					int t = q2.front();
+					q1.push(t);
+					q2.pop();
+				}
+				int t = q2.front();
+				q2.pop();
+				ptr = 1;
+				return t;
+			}
+		}
+		else {
+			if (!q2.empty()) {
+				int t = q2.front();
+				q2.pop();
+				return t;
+			}
+			else {
+				while (q1.size() > 1) {
+					int t = q1.front();
+					q2.push(t);
+					q1.pop();
+				}
+				int t = q1.front();
+				q1.pop();
+				ptr = 0;
+				return t;
+			}
+		}
+	}
+
+	/** Get the top element. */
+	int top() {
+		if (ptr == 0) {
+			if (q1.empty()) {
+				while (q2.size() > 1) {
+					int t = q2.front();
+					q2.pop();
+					q1.push(t);
+				}
+				int t = q2.front();
+				q1.push(t);
+				q2.pop();
+				ptr = 1;
+				return t;
+			}
+			return q1.front();
+		}
+		else {
+			if (q2.empty()) {
+				while (q1.size() > 1) {
+					int t = q1.front();
+					q1.pop();
+					q2.push(t);
+				}
+				int t = q1.front();
+				q2.push(t);
+				q1.pop();
+				ptr = 0;
+				return t;
+			}
+			return q2.front();
+		}
+	}
+
+	/** Returns whether the stack is empty. */
+	bool empty() {
+		return q1.empty() && q2.empty();
 	}
 };
