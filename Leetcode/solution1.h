@@ -1272,7 +1272,7 @@ public:
 };
 
 // 263. Ugly Number
-class Solution {
+class Solution35 {
 public:
 	bool isUgly(int num) {
 		long n = num;
@@ -1286,6 +1286,66 @@ public:
 			else if (n % 3 == 0) n /= 3;
 			else if ((n & 1) == 0) n /= 2;
 			else return false;
+		}
+		return true;
+	}
+};
+
+// 290. Word Pattern
+class Solution {
+public:
+	vector<string> vec;
+
+	void getStringFromStr(string s) {
+		int len = s.size();
+		int k = 0;
+		for (int i = 0; i < len; i++)
+		{
+			if (s[i] != ' ') {
+				k = i;
+				break;
+			}
+		}
+		string t = "";
+		for (int i = k; i < len; i++)
+		{
+			if (s[i] != ' ') {
+				t += s[i];
+			}
+			else if(t != "") {
+				vec.push_back(t);
+				t = "";
+			}
+		}
+		if (t != "") {
+			vec.push_back(t);
+			t = "";
+		}
+	}
+
+	bool wordPattern(string pattern, string str) {
+		if (pattern == "" || str == "") return false;
+		unordered_map<string, char> mp;
+		unordered_set<char> st;
+
+		getStringFromStr(str);
+		if (vec.size() != pattern.size()) return false;
+
+		int len = vec.size();
+		int k = 0;
+		for (int i = 0; i < len; i++)
+		{
+			if (mp.find(vec[i]) != mp.end()) {
+				if (mp[vec[i]] != pattern[k]) return false;
+			}
+			else {
+				if (st.find(pattern[k]) != st.end()) {
+					return false;
+				}
+				st.insert(pattern[k]);
+				mp[vec[i]] = pattern[k];
+			}
+			++k;
 		}
 		return true;
 	}
