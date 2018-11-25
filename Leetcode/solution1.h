@@ -1227,7 +1227,7 @@ public:
 };
 
 // 257. Binary Tree Paths
-class Solution {
+class Solution34 {
 public:
 	vector<string> vec;
 
@@ -1268,5 +1268,25 @@ public:
 			}
 		}
 		return vec;
+	}
+};
+
+// 263. Ugly Number
+class Solution {
+public:
+	bool isUgly(int num) {
+		long n = num;
+
+		if (n == 1) return true;
+		else if (n == 0) return false;
+		else if (n < 0) return false;
+
+		while (n > 1) {
+			if (n % 5 == 0) n /= 5;
+			else if (n % 3 == 0) n /= 3;
+			else if ((n & 1) == 0) n /= 2;
+			else return false;
+		}
+		return true;
 	}
 };
