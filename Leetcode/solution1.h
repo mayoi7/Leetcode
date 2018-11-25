@@ -1213,7 +1213,7 @@ public:
 };
 
 // 235. Lowest Common Ancestor of a Binary Search Tree
-class Solution {
+class Solution33 {
 public:
 	TreeNode * lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
 		if (root->val == p->val) return p;
@@ -1223,5 +1223,50 @@ public:
 		}
 		if (p->val > root->val) return lowestCommonAncestor(root->right, p, q);
 		else return lowestCommonAncestor(root->left, p, q);
+	}
+};
+
+// 257. Binary Tree Paths
+class Solution {
+public:
+	vector<string> vec;
+
+	void getCurrentPath(TreeNode* root, string s) {
+		s += ("->" + to_string(root->val));
+		if (root->left == NULL) {
+			if (root->right != NULL) {
+				getCurrentPath(root->right, s);
+			}
+			else {
+				vec.push_back(s);
+			}
+		}
+		else {
+			getCurrentPath(root->left, s);
+			if (root->right != NULL) {
+				getCurrentPath(root->right, s);
+			}
+		}
+		return;
+	}
+
+	vector<string> binaryTreePaths(TreeNode* root) {
+		if (root == NULL) return vec;
+		string s = ("" + to_string(root->val));
+		if (root->left == NULL) {
+			if (root->right != NULL) {
+				getCurrentPath(root->right, s);
+			}
+			else {
+				vec.push_back(s);
+			}
+		}
+		else {
+			getCurrentPath(root->left, s);
+			if (root->right != NULL) {
+				getCurrentPath(root->right, s);
+			}
+		}
+		return vec;
 	}
 };
