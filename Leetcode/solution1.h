@@ -1211,3 +1211,17 @@ public:
 		return a.empty() && b.empty();
 	}
 };
+
+// 235. Lowest Common Ancestor of a Binary Search Tree
+class Solution {
+public:
+	TreeNode * lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+		if (root->val == p->val) return p;
+		else if (root->val == q->val) return q;
+		else if (max(p->val, q->val) > root->val && min(p->val, q->val) < root->val) {
+			return root;
+		}
+		if (p->val > root->val) return lowestCommonAncestor(root->right, p, q);
+		else return lowestCommonAncestor(root->left, p, q);
+	}
+};
