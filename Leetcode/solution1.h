@@ -1136,7 +1136,7 @@ public:
 };
 
 // 231. Power of Two
-class Solution {
+class Solution32 {
 public:
 	bool isPowerOfTwo(int n) {
 		if (n == 0) return false;
@@ -1152,5 +1152,62 @@ public:
 			if (k > n) return false;
 		}
 		return false;
+	}
+};
+
+// 232. Implement Queue using Stacks
+class MyQueue {
+public:
+	stack<int> a, b;
+
+	/** Initialize your data structure here. */
+	MyQueue() {
+
+	}
+
+	/** Push element x to the back of queue. */
+	void push(int x) {
+		if (b.empty()) {
+			a.push(x);
+		}
+		else {
+			while (!b.empty()) {
+				int t = b.top();
+				b.pop();
+				a.push(t);
+			}
+			a.push(x);
+		}
+	}
+
+	/** Removes the element from in front of queue and returns that element. */
+	int pop() {
+		if (!a.empty()) {
+			while (!a.empty()) {
+				int t = a.top();
+				a.pop();
+				b.push(t);
+			}
+		}
+		int t = b.top();
+		b.pop();
+		return t;
+	}
+
+	/** Get the front element. */
+	int peek() {
+		if (!a.empty()) {
+			while (!a.empty()) {
+				int t = a.top();
+				a.pop();
+				b.push(t);
+			}
+		}
+		return b.top();
+	}
+
+	/** Returns whether the queue is empty. */
+	bool empty() {
+		return a.empty() && b.empty();
 	}
 };
