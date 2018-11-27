@@ -1483,3 +1483,33 @@ public:
 		return a;
 	}
 };
+
+// 374. Guess Number Higher or Lower
+int guess(int num);
+
+class Solution {
+public:
+
+	int guessNumber(int n) {
+		int p = 1, q = n + 1;
+		int mid = 0;
+		while (p < q) {
+			mid = p + (q - p) / 2;
+			int flag = guess(mid);
+			switch (flag)
+			{
+			case 0:
+				return mid;
+			case 1:
+				p = mid + 1;
+				break;
+			case -1:
+				q = mid;
+				break;
+			default:
+				break;
+			}
+		}
+		return n;
+	}
+};
