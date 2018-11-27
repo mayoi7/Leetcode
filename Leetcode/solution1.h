@@ -1415,7 +1415,7 @@ public:
 };
 
 // 349. Intersection of Two Arrays
-class Solution {
+class Solution39 {
 public:
 	vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
 		unordered_set<int> st;
@@ -1433,6 +1433,37 @@ public:
 			if (st.find(nums2[i]) != st.end()) {
 				res.push_back(nums2[i]);
 				st.erase(nums2[i]);
+			}
+		}
+		return res;
+	}
+};
+
+// 350. Intersection of Two Arrays II
+class Solution {
+public:
+	vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+		unordered_map<int, int> mp;	// key: num, value: times appear
+		int len1 = nums1.size(), len2 = nums2.size();
+		vector<int> res;
+		if (len1 == 0 || len2 == 0) return res;
+		for (int i = 0; i < len1; i++)
+		{
+			if (mp.find(nums1[i]) == mp.end()) {
+				mp[nums1[i]] = 1;
+			}
+			else {
+				mp[nums1[i]]++;
+			}
+		}
+
+		for (int i = 0; i < len2; i++)
+		{
+			if (mp.find(nums2[i]) == mp.end()) continue;
+			mp[nums2[i]]--;
+			res.push_back(nums2[i]);
+			if (mp[nums2[i]] == 0) {
+				mp.erase(nums2[i]);
 			}
 		}
 		return res;
