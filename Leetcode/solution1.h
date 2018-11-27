@@ -1352,9 +1352,31 @@ public:
 };
 
 // 292. Nim Game
-class Solution {
+class Solution37 {
 public:
 	bool canWinNim(int n) {
 		return n % 4;
+	}
+};
+
+// 303. Range Sum Query - Immutable
+class NumArray {
+public:
+	vector<int> nums;
+	int nl[10050] = { 0 };
+
+	NumArray(vector<int> nums) {
+		this->nums = nums;
+		int len = nums.size();
+		int sum = 0;
+		for (int i = 0; i < len; i++)
+		{
+			sum += nums[i];
+			nl[i] = sum;
+		}
+	}
+
+	int sumRange(int i, int j) {
+		return nl[j] - nl[i] + nums[i];
 	}
 };
