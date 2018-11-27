@@ -1382,7 +1382,7 @@ public:
 };
 
 // 345. Reverse Vowels of a String
-class Solution {
+class Solution345 {
 public:
 	string reverseVowels(string s) {
 		if (s.size() == 0) return s;
