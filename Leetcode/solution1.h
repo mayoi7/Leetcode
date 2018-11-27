@@ -1380,3 +1380,36 @@ public:
 		return nl[j] - nl[i] + nums[i];
 	}
 };
+
+// 345. Reverse Vowels of a String
+class Solution {
+public:
+	string reverseVowels(string s) {
+		if (s.size() == 0) return s;
+		unordered_set<char> vowels = { 'a','e','i','o','u','A','E','I','O','U' };
+		int p = 0, q = s.size() - 1;
+		int len = s.size();
+
+		do {
+			for (int i = p; i < q; i++)
+			{
+				if (vowels.find(s[i]) != vowels.end()) {
+					p = i;
+					break;
+				}
+			}
+			for (int i = q; i > p; i--)
+			{
+				if (vowels.find(s[i]) != vowels.end()) {
+					q = i;
+					break;
+				}
+			}
+			if (vowels.find(s[p]) == vowels.end() || vowels.find(s[q]) == vowels.end()) break;
+			swap(s[p], s[q]);
+			++p;
+			--q;
+		} while (p < q);
+		return s;
+	}
+};
