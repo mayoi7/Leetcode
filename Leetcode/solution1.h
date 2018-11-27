@@ -1292,7 +1292,7 @@ public:
 };
 
 // 290. Word Pattern
-class Solution {
+class Solution36 {
 public:
 	vector<string> vec;
 
@@ -1348,5 +1348,13 @@ public:
 			++k;
 		}
 		return true;
+	}
+};
+
+// 292. Nim Game
+class Solution {
+public:
+	bool canWinNim(int n) {
+		return n % 4;
 	}
 };
