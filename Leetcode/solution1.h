@@ -1440,7 +1440,7 @@ public:
 };
 
 // 350. Intersection of Two Arrays II
-class Solution {
+class Solution40 {
 public:
 	vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
 		unordered_map<int, int> mp;	// key: num, value: times appear
@@ -1467,5 +1467,19 @@ public:
 			}
 		}
 		return res;
+	}
+};
+
+// 371. Sum of Two Integers
+class Solution41 {
+public:
+	int getSum(int a, int b) {
+		while (b)
+		{
+			int c = a ^ b;
+			b = (a & b) << 1;
+			a = c;
+		}
+		return a;
 	}
 };
