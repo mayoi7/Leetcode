@@ -1413,3 +1413,28 @@ public:
 		return s;
 	}
 };
+
+// 349. Intersection of Two Arrays
+class Solution {
+public:
+	vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+		unordered_set<int> st;
+		int len1 = nums1.size(), len2 = nums2.size();
+		vector<int> res;
+		for (int i = 0; i < len1; i++)
+		{
+			if (st.find(nums1[i]) == st.end()) {
+				st.insert(nums1[i]);
+			}
+		}
+
+		for (int i = 0; i < len2; i++)
+		{
+			if (st.find(nums2[i]) != st.end()) {
+				res.push_back(nums2[i]);
+				st.erase(nums2[i]);
+			}
+		}
+		return res;
+	}
+};
