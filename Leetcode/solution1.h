@@ -1514,7 +1514,7 @@ public:
 };
 
 // 383. Ransom Note
-class Solution {
+class Solution43 {
 public:
 	bool canConstruct(string ransomNote, string magazine) {
 		unordered_map<char, int> mp;	// key: character in string, value: number of occurrences
@@ -1539,5 +1539,42 @@ public:
 			}
 		}
 		return mp.empty();
+	}
+};
+
+// 387. First Unique Character in a String
+class Solution {
+public:
+	int firstUniqChar(string s) {
+		if (s == "") return -1;
+		if (s.size() == 1) return 0;
+		vector<int> wd(130, INT_MAX);
+		map<char, int> mp;
+		int len = s.size();
+		int cnt = 1;
+
+		for (int i = 0; i < len; i++)
+		{
+			if (wd[s[i]] == INT_MAX) {
+				wd[s[i]] = cnt++;
+				mp[s[i]] = i;
+			}
+			else if(wd[s[i]] == INT_MAX - 1) {
+				continue;
+			}
+			else {
+				wd[s[i]] = INT_MAX - 1;
+			}
+		}
+
+		int min_site = 0;
+		for (int i = 65; i < 123; i++)
+		{
+			if (wd[i] < wd[min_site]) {
+				min_site = i;
+			}
+		}
+		if (wd[min_site >= INT_MAX - 1]) return -1;
+		return mp[min_site];
 	}
 };
