@@ -1543,7 +1543,7 @@ public:
 };
 
 // 387. First Unique Character in a String
-class Solution {
+class Solution44 {
 public:
 	int firstUniqChar(string s) {
 		if (s == "") return -1;
@@ -1576,5 +1576,32 @@ public:
 		}
 		if (wd[min_site >= INT_MAX - 1]) return -1;
 		return mp[min_site];
+	}
+};
+
+// 389. Find the Difference
+class Solution {
+public:
+	char findTheDifference(string s, string t) {
+		if (s == "") return t[0];
+
+		unordered_map<char, int> mp;
+		int len1 = s.size(), len2 = t.size();
+		for (int i = 0; i < len2; i++)
+		{
+			if (mp.find(t[i]) == mp.end()) {
+				mp[t[i]] = 1;
+			}
+			else {
+				mp[t[i]]++;
+			}
+		}
+
+		for (int i = 0; i < len1; i++)
+		{
+			mp[s[i]]--;
+			if (mp[s[i]] == 0) mp.erase(s[i]);
+		}
+		return (*(mp.begin())).first;
 	}
 };
