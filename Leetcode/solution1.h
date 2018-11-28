@@ -1612,3 +1612,35 @@ public:
 		return times;
 	}
 };
+
+// 404. Sum of Left Leaves
+class Solution {
+public:
+	int sum = 0;
+
+	void returnSum(TreeNode* root, int flag) {
+		if (root == NULL) return;
+		if (root->left == NULL) {
+			if (root->right == NULL) {
+				if (flag == 0) {
+					sum += root->val;
+				}
+				return;
+			}
+			returnSum(root->right, 1);
+		}
+		else {
+			returnSum(root->left, 0);
+			if (root->right != NULL) returnSum(root->right, 1);
+		}
+		return;
+	}
+
+	int sumOfLeftLeaves(TreeNode* root) {
+		sum = 0;
+		if (root == NULL) return 0;
+		if (root->left == NULL && root->right == NULL) return 0;
+		returnSum(root, 2);
+		return sum;
+	}
+};
