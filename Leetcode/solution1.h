@@ -1486,8 +1486,7 @@ public:
 
 // 374. Guess Number Higher or Lower
 int guess(int num);
-
-class Solution {
+class Solution42 {
 public:
 
 	int guessNumber(int n) {
@@ -1511,5 +1510,34 @@ public:
 			}
 		}
 		return n;
+	}
+};
+
+// 383. Ransom Note
+class Solution {
+public:
+	bool canConstruct(string ransomNote, string magazine) {
+		unordered_map<char, int> mp;	// key: character in string, value: number of occurrences
+		int L1 = ransomNote.size(), L2 = magazine.size();
+		if (L1 > L2) return false;
+		for (int i = 0; i < L1; i++)
+		{
+			if (mp.find(ransomNote[i]) == mp.end()) {
+				mp[ransomNote[i]] = 1;
+			}
+			else {
+				mp[ransomNote[i]]++;
+			}
+		}
+
+		for (int i = 0; i < L2; i++)
+		{
+			if (mp.find(magazine[i]) == mp.end()) continue;
+			else {
+				mp[magazine[i]]--;
+				if (mp[magazine[i]] <= 0) mp.erase(magazine[i]);
+			}
+		}
+		return mp.empty();
 	}
 };
