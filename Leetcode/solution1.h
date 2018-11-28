@@ -1614,7 +1614,7 @@ public:
 };
 
 // 404. Sum of Left Leaves
-class Solution {
+class Solution47 {
 public:
 	int sum = 0;
 
@@ -1642,5 +1642,103 @@ public:
 		if (root->left == NULL && root->right == NULL) return 0;
 		returnSum(root, 2);
 		return sum;
+	}
+};
+
+// 405. Convert a Number to Hexadecimal
+class Solution {
+public:
+	char toHexChar(int rem) {
+		if (rem > 9) {
+			rem -= 10;
+			rem += 'a';
+		}
+		else rem += '0';
+		return rem;
+	}
+
+	void addHex(int& rem) {
+		if (rem <= '8') {
+			rem++;
+		}
+		else if (rem == '9') rem = 'a';
+		else if (rem <= 'e') rem++;
+		else rem = '0';
+	}
+
+	string toComplement(string s) {
+		for (int i = 0; i < 8; i++)
+		{
+			int rem = 0;
+			if (s[i] <= '9') {
+				rem = s[i] - '0';
+			}
+			else {
+				rem = s[i] - 'a' + 10;
+			}
+			rem = (15 - rem);
+			rem = toHexChar(rem);
+			s[i] = rem;
+		}
+
+		int c = 0;
+		if (s[7] == 'f') {
+			c = 1;
+			s[7] = '0';
+		}
+		else {
+			int rem = s[7];
+			addHex(rem);
+			s[7] = rem;
+			return s;
+		}
+		for (int i = 6; i >= 0; i--)
+		{
+			if (s[i] == 'f') {
+				c = 1;
+				s[i] = '0';
+			}
+			else {
+				int rem = s[i];
+				addHex(rem);
+				s[i] = rem;
+				return s;
+			}
+		}
+		return s;
+	}
+
+	string toHexNum(int num) {
+		string s(8, '0');
+		int i = 7;
+		while (num) {
+			int rem = num % 16;
+			rem = toHexChar(rem);
+			s[i--] = rem;
+			num /= 16;
+		}
+		return s;
+	}
+
+	string deleteZero(string s) {
+		for (int i = 0; i < 8; i++)
+		{
+			if (s[i] != '0') {
+				return s.substr(i);
+			}
+		}
+		return s;
+	}
+
+	string toHex(int num) {
+		if (num == 0) return "0";
+		else if (num == -2147483648) return "80000000";
+		else if (num == -1) return "ffffffff";
+		if (num > 0) return deleteZero(toHexNum(num));
+		else {
+			num = -num;
+			string s = toHexNum(num);
+			return toComplement(s);
+		}
 	}
 };
