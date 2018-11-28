@@ -1580,7 +1580,7 @@ public:
 };
 
 // 389. Find the Difference
-class Solution {
+class Solution45 {
 public:
 	char findTheDifference(string s, string t) {
 		if (s == "") return t[0];
@@ -1603,5 +1603,24 @@ public:
 			if (mp[s[i]] == 0) mp.erase(s[i]);
 		}
 		return (*(mp.begin())).first;
+	}
+};
+
+// 401. Binary Watch
+class Solution {
+public:
+	vector<string> readBinaryWatch(int num) {
+		vector<string> times;
+
+		for (int i = 0; i < 12; i++) {
+			bitset<4> h((size_t)i);
+			for (int j = 0; j < 60; j++) {
+				bitset<6> m((size_t)j);
+				if (h.count() + m.count() == num)
+					times.push_back(to_string(i) + (j < 10 ? ":0" : ":") + to_string(j));
+			}
+		}
+
+		return times;
 	}
 };
