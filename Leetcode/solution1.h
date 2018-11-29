@@ -1744,7 +1744,7 @@ public:
 };
 
 // 409. Longest Palindrome
-class Solution {
+class Solution49 {
 public:
 	int longestPalindrome(string s) {
 		unordered_set<char> st;
@@ -1763,5 +1763,36 @@ public:
 		}
 		if (!st.empty()) max++;
 		return max;
+	}
+};
+
+// 412. Fizz Buzz
+class Solution {
+public:
+	vector<string> fizzBuzz(int n) {
+		vector<string> res;
+		int f3 = 2, f5 = 4;
+		for (int i = 1; i <= n; i++)
+		{
+			if (f3 == 0 && f5 == 0) {
+				f3 = 3;
+				f5 = 5;
+				res.push_back("FizzBuzz");
+			}
+			else if (f3 == 0) {
+				f3 = 3;
+				res.push_back("Fizz");
+			}
+			else if (f5 == 0) {
+				f5 = 5;
+				res.push_back("Buzz");
+			}
+			else {
+				res.push_back(to_string(i));
+			}
+			f3--;
+			f5--;
+		}
+		return res;
 	}
 };
