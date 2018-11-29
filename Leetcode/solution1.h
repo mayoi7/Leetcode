@@ -1646,7 +1646,7 @@ public:
 };
 
 // 405. Convert a Number to Hexadecimal
-class Solution {
+class Solution48 {
 public:
 	char toHexChar(int rem) {
 		if (rem > 9) {
@@ -1740,5 +1740,28 @@ public:
 			string s = toHexNum(num);
 			return toComplement(s);
 		}
+	}
+};
+
+// 409. Longest Palindrome
+class Solution {
+public:
+	int longestPalindrome(string s) {
+		unordered_set<char> st;
+		int len = s.size();
+		int max = 0;
+
+		for (int i = 0; i < len; i++)
+		{
+			if (st.find(s[i]) == st.end()) {
+				st.insert(s[i]);
+			}
+			else {
+				max += 2;
+				st.erase(s[i]);
+			}
+		}
+		if (!st.empty()) max++;
+		return max;
 	}
 };
