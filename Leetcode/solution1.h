@@ -1767,7 +1767,7 @@ public:
 };
 
 // 412. Fizz Buzz
-class Solution {
+class Solution50 {
 public:
 	vector<string> fizzBuzz(int n) {
 		vector<string> res;
