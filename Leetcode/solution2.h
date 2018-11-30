@@ -84,7 +84,7 @@ public:
 };
 
 // 415. Add Strings
-class Solution {
+class Solution03 {
 public:
 	string addStrings(string num1, string num2) {
 		if (num1 == "") return num2;
@@ -120,6 +120,43 @@ public:
 		while (!stk.empty()) {
 			res += stk.top();
 			stk.pop();
+		}
+		return res;
+	}
+};
+
+// 429. N-ary Tree Level Order Traversal
+class Solution {
+public:
+	vector<vector<int>> levelOrder(Node* root) {
+		vector<vector<int>> res;
+		if (root == NULL) return res;
+		queue<Node*> que;
+		que.push(root);
+		while (!que.empty()) {
+			Node* last = que.back();
+			vector<int> temp;
+			Node* tNode = que.front();
+
+			while (tNode != last) {	// traverse one level
+				vector<Node*> nodes = tNode->children;
+				for (auto i = nodes.begin(); i != nodes.end(); i++)
+				{
+					que.push(*i);
+				}
+				temp.push_back(tNode->val);
+				que.pop();
+				tNode = que.front();
+			}
+			vector<Node*> nodes = tNode->children;
+			for (auto i = nodes.begin(); i != nodes.end(); i++)
+			{
+				que.push(*i);
+			}
+			temp.push_back(tNode->val);
+			que.pop();
+
+			res.push_back(temp);
 		}
 		return res;
 	}

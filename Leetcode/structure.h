@@ -13,3 +13,16 @@ struct TreeNode {
 	TreeNode *right;
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
+
+class Node {
+public:
+	int val = NULL;
+	vector<Node*> children;
+
+	Node() {}
+
+	Node(int _val, vector<Node*> _children) {
+		val = _val;
+		children = _children;
+	}
+};
