@@ -3,7 +3,7 @@
 
 
 // 413. Arithmetic Slices
-class Solution {
+class Solution01 {
 public:
 	int getNum(int n) {
 		return (n - 2)*(n - 1) / 2;
@@ -80,5 +80,47 @@ public:
 		}
 		if (f < 3) return a[0];
 		return a[2];
+	}
+};
+
+// 415. Add Strings
+class Solution {
+public:
+	string addStrings(string num1, string num2) {
+		if (num1 == "") return num2;
+		else if (num2 == "") return num1;
+
+		int len1 = num1.size(), len2 = num2.size();
+		int i = len1 - 1, j = len2 - 1;
+		int c = 0;
+		stack<char> stk;
+		string res = "";
+		int sum = 0;
+		while (i >= 0 && j >= 0) {
+			sum = (num1[i--] - '0' + num2[j--] - '0' + c);
+			c = sum / 10;
+			sum %= 10;
+			stk.push(sum + '0');
+		}
+		while (i >= 0) {
+			sum = (num1[i--] - '0' + c);
+			c = sum / 10;
+			sum %= 10;
+			stk.push(sum + '0');
+		}
+		while (j >= 0) {
+			sum = (num2[j--] - '0' + c);
+			c = sum / 10;
+			sum %= 10;
+			stk.push(sum + '0');
+		}
+		if (c > 0) {
+			stk.push(c + '0');
+		}
+		while (!stk.empty()) {
+			res += stk.top();
+			stk.pop();
+		}
+		return res;
 	}
 };
