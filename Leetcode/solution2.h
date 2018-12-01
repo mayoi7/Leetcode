@@ -126,7 +126,7 @@ public:
 };
 
 // 429. N-ary Tree Level Order Traversal
-class Solution {
+class Solution04 {
 public:
 	vector<vector<int>> levelOrder(Node* root) {
 		vector<vector<int>> res;
@@ -159,5 +159,20 @@ public:
 			res.push_back(temp);
 		}
 		return res;
+	}
+};
+
+// 437. Path Sum III
+class Solution {
+public:
+	int pathSum(TreeNode* root, int sum) {
+		if (!root) return 0;
+		return sumUp(root, 0, sum) + pathSum(root->left, sum) + pathSum(root->right, sum);
+	}
+
+	int sumUp(TreeNode* root, int pre, int& sum) {
+		if (!root) return 0;
+		int current = pre + root->val;
+		return (current == sum) + sumUp(root->left, current, sum) + sumUp(root->right, current, sum);
 	}
 };
