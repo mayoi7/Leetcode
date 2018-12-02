@@ -207,14 +207,28 @@ public:
 // 442. Find All Duplicates in an Array
 class Solution {
 public:
-	vector<int> findDuplicates(vector<int>& nums) {
-		vector<int> ans;
-		for (auto p : nums)
-		{
-			if (nums[abs(p) - 1] < 0)
-				ans.push_back(abs(p));
-			nums[abs(p) - 1] = 0 - nums[abs(p) - 1];
+	vector<int> res;
+
+	void adjust(vector<int>& nums, int i) {
+		int n = nums[i];
+		if (nums[n] == n) {
+			if(i != n) res.push_back(n);
+			return;
 		}
-		return ans;
+		else {
+			swap(nums[n], nums[i]);
+			adjust(nums, n);
+		}
+	}
+
+	vector<int> findDuplicates(vector<int>& nums) {
+		int n = nums.size();
+		res.clear();
+		nums.insert(nums.begin(), 0);
+		for (int i = 1; i <= n; i++)
+		{
+			adjust(nums, i);
+		}
+		return res;
 	}
 };
