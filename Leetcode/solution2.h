@@ -126,44 +126,44 @@ public:
 };
 
 // 429. N-ary Tree Level Order Traversal
-class Solution04 {
-public:
-	vector<vector<int>> levelOrder(Node* root) {
-		vector<vector<int>> res;
-		if (root == NULL) return res;
-		queue<Node*> que;
-		que.push(root);
-		while (!que.empty()) {
-			Node* last = que.back();
-			vector<int> temp;
-			Node* tNode = que.front();
-
-			while (tNode != last) {	// traverse one level
-				vector<Node*> nodes = tNode->children;
-				for (auto i = nodes.begin(); i != nodes.end(); i++)
-				{
-					que.push(*i);
-				}
-				temp.push_back(tNode->val);
-				que.pop();
-				tNode = que.front();
-			}
-			vector<Node*> nodes = tNode->children;
-			for (auto i = nodes.begin(); i != nodes.end(); i++)
-			{
-				que.push(*i);
-			}
-			temp.push_back(tNode->val);
-			que.pop();
-
-			res.push_back(temp);
-		}
-		return res;
-	}
-};
+//class Solution04 {
+//public:
+//	vector<vector<int>> levelOrder(Node* root) {
+//		vector<vector<int>> res;
+//		if (root == NULL) return res;
+//		queue<Node*> que;
+//		que.push(root);
+//		while (!que.empty()) {
+//			Node* last = que.back();
+//			vector<int> temp;
+//			Node* tNode = que.front();
+//
+//			while (tNode != last) {	// traverse one level
+//				vector<Node*> nodes = tNode->children;
+//				for (auto i = nodes.begin(); i != nodes.end(); i++)
+//				{
+//					que.push(*i);
+//				}
+//				temp.push_back(tNode->val);
+//				que.pop();
+//				tNode = que.front();
+//			}
+//			vector<Node*> nodes = tNode->children;
+//			for (auto i = nodes.begin(); i != nodes.end(); i++)
+//			{
+//				que.push(*i);
+//			}
+//			temp.push_back(tNode->val);
+//			que.pop();
+//
+//			res.push_back(temp);
+//		}
+//		return res;
+//	}
+//};
 
 // 437. Path Sum III
-class Solution {
+class Solution05 {
 public:
 	int pathSum(TreeNode* root, int sum) {
 		if (!root) return 0;
@@ -174,5 +174,22 @@ public:
 		if (!root) return 0;
 		int current = pre + root->val;
 		return (current == sum) + sumUp(root->left, current, sum) + sumUp(root->right, current, sum);
+	}
+};
+
+// 438. Find All Anagrams in a String
+class Solution {
+public:
+	vector<int> findAnagrams(string s, string p) {
+		if (s.empty()) return {};
+		vector<int> res, m(256, 0);
+		int left = 0, right = 0, cnt = p.size(), n = s.size();
+		for (char c : p) ++m[c];
+		while (right < n) {
+			if (m[s[right++]]-- >= 1) --cnt;
+			if (cnt == 0) res.push_back(left);
+			if (right - left == p.size() && m[s[left++]]++ >= 0) ++cnt;
+		}
+		return res;
 	}
 };
