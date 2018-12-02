@@ -205,7 +205,7 @@ public:
 };
 
 // 442. Find All Duplicates in an Array
-class Solution {
+class Solution08 {
 public:
 	vector<int> findDuplicates(vector<int>& nums) {
 		vector<int> ans;
@@ -216,5 +216,32 @@ public:
 			nums[abs(p) - 1] = 0 - nums[abs(p) - 1];
 		}
 		return ans;
+	}
+};
+
+// 443. String Compression
+class Solution {
+public:
+
+	int compress(vector<char>& chars) {
+		int tc = 1, index = 0;
+		int len = chars.size();
+		chars.push_back('-');
+		for (int i = 1; i <= len; i++)
+		{
+			if (chars[i] == chars[i - 1]) ++tc;
+			else {
+				chars[index++] = chars[i - 1];
+				if (tc >= 10) {
+					string st = to_string(tc);
+					for (int j = 0; j < st.size(); j++)
+						chars[index++] = st[j];
+				}
+				else if (tc > 1) chars[index++] = tc + '0';
+				tc = 1;
+			}
+		}
+		chars.pop_back();
+		return index;
 	}
 };
