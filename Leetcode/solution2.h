@@ -178,7 +178,7 @@ public:
 };
 
 // 438. Find All Anagrams in a String
-class Solution {
+class Solution06 {
 public:
 	vector<int> findAnagrams(string s, string p) {
 		if (s.empty()) return {};
@@ -191,5 +191,15 @@ public:
 			if (right - left == p.size() && m[s[left++]]++ >= 0) ++cnt;
 		}
 		return res;
+	}
+};
+
+// 441. Arranging Coins
+class Solution {
+public:
+	int arrangeCoins(int n) {
+		long long t = n;
+		long a = (long long)sqrt(8 * t + 1);
+		return (a - 1) / 2;
 	}
 };
