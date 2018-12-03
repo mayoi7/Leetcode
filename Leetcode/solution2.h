@@ -276,7 +276,7 @@ public:
 };
 
 // 453. Minimum Moves to Equal Array Elements
-class Solution {
+class Solution11 {
 public:
 	int minMoves(vector<int>& nums) {
 		if (nums.size() <= 1) return 0;
@@ -290,6 +290,32 @@ public:
 			else if (nums[i] < nums[i - 1]) {
 				cnt += (i * (nums[i - 1] - nums[i]));
 			}
+		}
+		return cnt;
+	}
+};
+
+// 455. Assign Cookies
+class Solution {
+public:
+	int findContentChildren(vector<int>& g, vector<int>& s) {
+		sort(g.begin(), g.end());
+		sort(s.begin(), s.end());
+		int cnt = 0;
+		int p = 0;
+		int len1 = g.size(), len2 = s.size();
+		if (len2 == 0) return 0;
+
+		for (int i = 0; i < len1; i++)
+		{
+			if (p >= len2) return cnt;
+			if (g[i] > s[p++]) {
+				if (s[len2 - 1] < g[i]) return cnt;
+				while (p < len2 && g[i] > s[p++]) {
+					if (p >= len2) return cnt;
+				}
+			}
+			++cnt;
 		}
 		return cnt;
 	}
