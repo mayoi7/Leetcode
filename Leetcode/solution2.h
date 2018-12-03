@@ -220,7 +220,7 @@ public:
 };
 
 // 443. String Compression
-class Solution {
+class Solution09 {
 public:
 
 	int compress(vector<char>& chars) {
@@ -243,5 +243,34 @@ public:
 		}
 		chars.pop_back();
 		return index;
+	}
+};
+
+// 448. Find All Numbers Disappeared in an Array
+class Solution {
+public:
+	void adjust(vector<int>& nums, int i) {
+		if (nums[i] != (i + 1)) {
+			if (nums[nums[i] - 1] == nums[i]) {
+				return;
+			}
+			swap(nums[i], nums[nums[i] - 1]);
+			adjust(nums, i);
+		}
+	}
+
+	vector<int> findDisappearedNumbers(vector<int>& nums) {
+		vector<int> res;
+
+		for (int i = 0; i < nums.size(); i++)
+		{
+			adjust(nums, i);
+		}
+
+		for (int i = 0; i < nums.size(); i++)
+		{
+			if (nums[i] != (i + 1)) res.push_back(i + 1);
+		}
+		return res;
 	}
 };
