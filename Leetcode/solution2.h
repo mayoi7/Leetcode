@@ -247,7 +247,7 @@ public:
 };
 
 // 448. Find All Numbers Disappeared in an Array
-class Solution {
+class Solution10 {
 public:
 	void adjust(vector<int>& nums, int i) {
 		if (nums[i] != (i + 1)) {
@@ -272,5 +272,25 @@ public:
 			if (nums[i] != (i + 1)) res.push_back(i + 1);
 		}
 		return res;
+	}
+};
+
+// 453. Minimum Moves to Equal Array Elements
+class Solution {
+public:
+	int minMoves(vector<int>& nums) {
+		if (nums.size() <= 1) return 0;
+		int cnt = 0;
+		for (int i = 1; i < nums.size(); i++)
+		{
+			if (nums[i] > nums[i - 1]) {
+				cnt += (nums[i] - nums[i - 1]);
+				nums[i] = nums[i - 1];
+			}
+			else if (nums[i] < nums[i - 1]) {
+				cnt += (i * (nums[i - 1] - nums[i]));
+			}
+		}
+		return cnt;
 	}
 };
