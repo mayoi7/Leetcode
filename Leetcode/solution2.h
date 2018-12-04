@@ -296,7 +296,7 @@ public:
 };
 
 // 455. Assign Cookies
-class Solution {
+class Solution12 {
 public:
 	int findContentChildren(vector<int>& g, vector<int>& s) {
 		sort(g.begin(), g.end());
@@ -318,5 +318,18 @@ public:
 			++cnt;
 		}
 		return cnt;
+	}
+};
+
+// 458. Poor Pigs
+class Solution {
+public:
+	int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
+		int times = minutesToTest / minutesToDie + 1;
+		int pig = 0;
+		while (pow(times, pig) < buckets) {
+			pig += 1;
+		}
+		return pig;
 	}
 };
