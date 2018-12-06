@@ -322,7 +322,7 @@ public:
 };
 
 // 458. Poor Pigs
-class Solution {
+class Solution13 {
 public:
 	int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
 		int times = minutesToTest / minutesToDie + 1;
@@ -331,5 +331,26 @@ public:
 			pig += 1;
 		}
 		return pig;
+	}
+};
+
+// 459. Repeated Substring Pattern
+class Solution {
+public:
+	bool repeatedSubstringPattern(string s) {
+		int n = s.size();
+		for (int i = n / 2; i > 0; i--) {
+			string s2 = "";
+			if (n%i == 0) {
+				int c = n / i;
+				for (int j = 0; j < c; j++) {
+					s2 += s.substr(0, i);
+				}
+			}
+			if (s == s2) {
+				return true;
+			}
+		}
+		return false;
 	}
 };
