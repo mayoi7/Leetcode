@@ -335,7 +335,7 @@ public:
 };
 
 // 459. Repeated Substring Pattern
-class Solution {
+class Solution14 {
 public:
 	bool repeatedSubstringPattern(string s) {
 		int n = s.size();
@@ -352,5 +352,19 @@ public:
 			}
 		}
 		return false;
+	}
+};
+
+// 461. Hamming Distance
+class Solution {
+public:
+	int hammingDistance(int x, int y) {
+		int sum = 0;
+		while (x || y) {
+			if ((x % 2) != (y % 2)) ++sum;
+			x >>= 1;
+			y >>= 1;
+		}
+		return sum;
 	}
 };
