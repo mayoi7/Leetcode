@@ -53,7 +53,7 @@ public:
 };
 
 // 11
-class Solution {
+class Solution02 {
 public:
 	int getP(int h1, int h2, int i, int j) {
 		return abs(min(h1, h2) * (j - i));
@@ -88,5 +88,54 @@ public:
 			}
 		}
 		return max;
+	}
+};
+
+// 23
+class Solution {
+public:
+	ListNode * mergeTwoLists(ListNode* l1, ListNode* l2) {
+		ListNode* a = new ListNode(0);
+		ListNode* head = a;
+		while (l1 && l2)
+		{
+			if (l1->val < l2->val) {
+				a->next = l1;
+				l1 = l1->next;
+			}
+			else
+			{
+				a->next = l2;
+				l2 = l2->next;
+			}
+			a = a->next;
+		}
+		if (l1) {
+			a->next = l1;
+		}
+		else
+		{
+			a->next = l2;
+		}
+		return head->next;
+	}
+
+	ListNode* mergeKLists(vector<ListNode*>& lists) {
+		int len = lists.size();
+		if (len == 0) return nullptr;
+		else if (len == 1) return lists[0];
+		else if (len == 2) return mergeTwoLists(lists[0], lists[1]);
+
+		vector<ListNode*> vec;
+		int i = 0;
+		if ((len & 1) != 0) {
+			vec.push_back(lists[i++]);
+		}
+
+		for (; i < len; i += 2) {
+			vec.push_back(mergeTwoLists(lists[i], lists[i + 1]));
+		}
+
+		return mergeKLists(vec);
 	}
 };
