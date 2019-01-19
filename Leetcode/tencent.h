@@ -92,7 +92,7 @@ public:
 };
 
 // 23
-class Solution {
+class Solution03 {
 public:
 	ListNode * mergeTwoLists(ListNode* l1, ListNode* l2) {
 		ListNode* a = new ListNode(0);
@@ -137,5 +137,64 @@ public:
 		}
 
 		return mergeKLists(vec);
+	}
+};
+
+// 54. Spiral Matrix
+class Solution {
+public:
+	void addEdgeElemInCircle(vector<int>& a, vector<vector<int>>& b, int si, int sj, int ei ,int ej) {
+		if (si == ei) {
+			for (int i = sj; i <= ej; i++)
+			{
+				a.push_back(b[si][i]);
+			}
+			return;
+		}
+		if (sj == ej) {
+			for (int i = si; i <= ei; i++)
+			{
+				a.push_back(b[i][sj]);
+			}
+			return;
+		}
+
+		for (int i = sj; i < ej; i++)
+		{
+			a.push_back(b[si][i]);
+		}
+		for (int i = si; i < ei; i++)
+		{
+			a.push_back(b[i][ej]);
+		}
+		for (int i = ej; i > sj; i--)
+		{
+			a.push_back(b[ei][i]);
+		}
+		for (int i = ei; i > si; i--)
+		{
+			a.push_back(b[i][sj]);
+		}
+	}
+
+	vector<int> spiralOrder(vector<vector<int>>& matrix) {
+		vector<int> res;
+		int row = matrix.size();
+		if (row == 0) return res;
+		int col = matrix[0].size();
+		int si = row / 2, sj = col / 2;
+		int mm = min(si, sj);
+		row--;
+		col--;
+		if (min(row, col) <= 1) {
+			addEdgeElemInCircle(res, matrix, 0, 0, row, col);
+			return res;
+		}
+
+		for (int i = 0; i <= mm; i++)
+		{
+			addEdgeElemInCircle(res, matrix, i, i, row - i, col - i);
+		}
+		return res;
 	}
 };
