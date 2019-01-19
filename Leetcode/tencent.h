@@ -141,7 +141,7 @@ public:
 };
 
 // 54. Spiral Matrix
-class Solution {
+class Solution04 {
 public:
 	void addEdgeElemInCircle(vector<int>& a, vector<vector<int>>& b, int si, int sj, int ei ,int ej) {
 		if (si == ei) {
@@ -194,6 +194,57 @@ public:
 		for (int i = 0; i <= mm; i++)
 		{
 			addEdgeElemInCircle(res, matrix, i, i, row - i, col - i);
+		}
+		return res;
+	}
+};
+
+// 59. Spiral Matrix II
+class Solution {
+public:
+	void writeRound(vector<vector<int>>& a, int& num, int si, int sj, int ei, int ej) {
+		if (si == ei && sj == ej) {
+			a[si][sj] = num++;
+			return;
+		}
+
+		for (int i = sj; i < ej; i++)
+		{
+			a[si][i] = num++;
+		}
+		for (int i = si; i < ei; i++)
+		{
+			a[i][ej] = num++;
+		}
+		if (a[ei][ej] != 0) return;
+		for (int i = ej; i > sj; i--)
+		{
+			a[ei][i] = num++;
+		}
+
+		if (a[ei][sj] != 0) return;
+		for (int i = ei; i > si; i--)
+		{
+			a[i][sj] = num++;
+		}
+	}
+
+	vector<vector<int>> generateMatrix(int n) {
+		vector<vector<int>> res;
+		int num = 1;
+		for (int i = 0; i < n; i++)
+		{
+			res.push_back(vector<int>(n, 0));
+		}
+		if (n <= 2) {
+			writeRound(res, num, 0, 0, n - 1, n - 1);
+			return res;
+		}
+		int hf = n / 2;
+		int row = n - 1, col = n - 1;
+		for (int i = 0; i <= hf; i++)
+		{
+			writeRound(res, num, i, i, row - i, col - i);
 		}
 		return res;
 	}
