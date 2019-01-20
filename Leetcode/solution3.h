@@ -23,3 +23,30 @@ public:
 		return res;
 	}
 };
+
+// 80. Remove Duplicates from Sorted Array II
+class Solution {
+public:
+	int removeDuplicates(vector<int>& nums) {
+		int len = nums.size();
+		if (len <= 2) return len;
+		bool f = 0;
+		int p = 1;
+		for (int i = 1; i < len; i++)
+		{
+			if (nums[i] == nums[i - 1]) {
+				if (f) {
+					while (i < len && nums[i] == nums[i - 1]) ++i;
+					if (i == len) break;
+					f = 0;
+				}
+				else {
+					f = 1;
+				}
+			}
+			else f = 0;
+			nums[p++] = nums[i];
+		}
+		return p;
+	}
+};
