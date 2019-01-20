@@ -1,7 +1,6 @@
 #pragma once
 #include "stdafx.h"
 
-
 // 413. Arithmetic Slices
 class Solution01 {
 public:
@@ -370,7 +369,7 @@ public:
 };
 
 // 463. Island Perimeter
-class Solution {
+class Solution16 {
 public:
 	int islandPerimeter(vector<vector<int>>& grid) {
 		int st = 4, cnt = 0;

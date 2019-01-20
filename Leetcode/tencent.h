@@ -200,7 +200,7 @@ public:
 };
 
 // 59. Spiral Matrix II
-class Solution {
+class Solution05 {
 public:
 	void writeRound(vector<vector<int>>& a, int& num, int si, int sj, int ei, int ej) {
 		if (si == ei && sj == ej) {
@@ -249,3 +249,4 @@ public:
 		return res;
 	}
 };
+
