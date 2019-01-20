@@ -25,7 +25,7 @@ public:
 };
 
 // 80. Remove Duplicates from Sorted Array II
-class Solution {
+class Solution02 {
 public:
 	int removeDuplicates(vector<int>& nums) {
 		int len = nums.size();
@@ -48,5 +48,29 @@ public:
 			nums[p++] = nums[i];
 		}
 		return p;
+	}
+};
+
+// 950. Reveal Cards In Increasing Order
+class Solution {
+public:
+	vector<int> deckRevealedIncreasing(vector<int>& deck) {
+		int n = deck.size();
+		vector<int> vec(n, -7623);
+		sort(deck.begin(), deck.end());
+		int p = 0;
+		int i = 0;
+		bool f = 1;
+		while (p < n) {
+			if (vec[i] == -7623) {
+				if (f) {
+					vec[i] = deck[p++];
+				}
+				f = !f;
+			}
+
+			i = (i + 1) % n;
+		}
+		return vec;
 	}
 };
