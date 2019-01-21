@@ -98,3 +98,27 @@ public:
 		}
 	}
 };
+
+// 375. Guess Number Higher or Lower II
+class Solution {
+public:
+	int check(vector<vector<int>>& arr, int p, int q) {
+		if (p >= q) return 0;
+		if (arr[p][q]) return arr[p][q];
+
+		arr[p][q] = INT_MAX;
+		for (int i = p; i <= q; i++)
+		{
+			int left = check(arr, p, i - 1);
+			int right = check(arr, i + 1, q);
+			int now = i + max(left, right);
+			arr[p][q] = min(arr[p][q], now);
+		}
+		return arr[p][q];
+	}
+
+	int getMoneyAmount(int n) {
+		vector<vector<int>> arr(n + 1, vector<int>(n + 1, 0));
+		return check(arr, 1, n);
+	}
+};
