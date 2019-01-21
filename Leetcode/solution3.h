@@ -52,7 +52,7 @@ public:
 };
 
 // 950. Reveal Cards In Increasing Order
-class Solution {
+class Solution03 {
 public:
 	vector<int> deckRevealedIncreasing(vector<int>& deck) {
 		int n = deck.size();
@@ -72,5 +72,29 @@ public:
 			i = (i + 1) % n;
 		}
 		return vec;
+	}
+};
+
+// 374. Guess Number Higher or Lower
+class Solution04 {
+public:
+	int tar = 12;
+	int guess(int num) {
+		if (tar == num) return 0;
+		else if (tar < num) return -1;
+		return 1;
+	}
+
+	int guessNumber(int n) {
+		int lo = 1, hi = n + 1;
+		int mid = 0;
+		int f = 0;
+		while (true) {
+			mid = lo + (hi - lo) / 2;
+			f = guess(mid);
+			if (f == 0) return mid;
+			else if (f == -1) hi = mid;
+			else lo = mid + 1;
+		}
 	}
 };
