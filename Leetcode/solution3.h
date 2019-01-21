@@ -100,7 +100,7 @@ public:
 };
 
 // 375. Guess Number Higher or Lower II
-class Solution {
+class Solution05 {
 public:
 	int check(vector<vector<int>>& arr, int p, int q) {
 		if (p >= q) return 0;
@@ -120,5 +120,25 @@ public:
 	int getMoneyAmount(int n) {
 		vector<vector<int>> arr(n + 1, vector<int>(n + 1, 0));
 		return check(arr, 1, n);
+	}
+};
+
+// 383. Ransom Note
+class Solution {
+public:
+	bool canConstruct(string ransomNote, string magazine) {
+		int a[26] = { 0 };
+		int n2 = magazine.size(), n1 = ransomNote.size();
+
+		for (int i = 0; i < n2; i++)
+		{
+			a[magazine[i] - 'a']++;
+		}
+
+		for (int i = 0; i < n1; i++)
+		{
+			if (a[ransomNote[i] - 'a']-- == 0) return false;
+		}
+		return true;
 	}
 };
