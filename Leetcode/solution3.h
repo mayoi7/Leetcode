@@ -124,7 +124,7 @@ public:
 };
 
 // 383. Ransom Note
-class Solution {
+class Solution06 {
 public:
 	bool canConstruct(string ransomNote, string magazine) {
 		int a[26] = { 0 };
@@ -140,5 +140,75 @@ public:
 			if (a[ransomNote[i] - 'a']-- == 0) return false;
 		}
 		return true;
+	}
+};
+
+// 401. Binary Watch
+class Solution {
+public:
+	int st[10] = { 1,2,4,8,1,2,4,8,16,32 };
+
+	// 通过on数组的亮灯位置来得出一个时间
+	string countOn(vector<int> on) {
+		int h = 0, m = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			if (on[i]) {	// 如果目标位置灯是亮的
+				h += st[i];
+			}
+		}
+		for (int i = 4; i < 10; i++)
+		{
+			if (on[i]) {
+				m += st[i];
+			}
+		}
+		string s = "";
+		s += (to_string(h) + ":");
+		if (m < 10) s += "0";
+		s += to_string(m);
+		return s;
+	}
+
+	void getProperArray(vector<vector<int>>& vec, int num, int start, vector<int>& cpy) {
+		if (start >= 10) {
+			vec.push_back(cpy);
+			return;
+		}
+		if (num <= 0) {
+			vec.push_back(cpy);
+			return;
+		}
+		if (start + num == 10) {	// 正好够亮，不能不亮的情况
+			for (int i = start; i < 10; i++) cpy[i] = 1;
+
+			vec.push_back(cpy);
+			return;
+		}
+
+		vector<int> arr(cpy);
+
+		// 有亮和不亮两个选择
+		cpy[start] = 1;
+		getProperArray(vec, num - 1, start + 1, cpy);
+
+
+		// 选择不亮
+		getProperArray(vec, num, start + 1, arr);
+	}
+
+	vector<string> readBinaryWatch(int num) {
+		vector<string> res;
+		if (num < 0 || num > 10) return res;
+		vector<vector<int>> vec;
+		vector<int> arr(10, 0);
+
+		getProperArray(vec, num, 0, arr);
+		for (auto i = vec.begin(); i < vec.end(); i++)
+		{
+			string s = countOn(*i);
+			res.push_back(s);
+		}
+		return res;
 	}
 };
