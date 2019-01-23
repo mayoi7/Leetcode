@@ -144,7 +144,7 @@ public:
 };
 
 // 401. Binary Watch
-class Solution {
+class Solution07 {
 public:
 	int st[10] = { 1,2,4,8,1,2,4,8,16,32 };
 
@@ -210,5 +210,25 @@ public:
 			res.push_back(s);
 		}
 		return res;
+	}
+};
+
+// 404. Sum of Left Leaves
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+class Solution {
+public:
+	int sumOfLeftLeaves(TreeNode* root) {
+		if (root == NULL) return 0;
+		if (root->left != NULL)
+		{
+			if (root->left->left == NULL && root->left->right == NULL) return root->left->val + sumOfLeftLeaves(root->right);
+			return sumOfLeftLeaves(root->left) + sumOfLeftLeaves(root->right);
+		}
+		else return sumOfLeftLeaves(root->right);
 	}
 };
