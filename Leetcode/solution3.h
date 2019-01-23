@@ -214,12 +214,6 @@ public:
 };
 
 // 404. Sum of Left Leaves
-struct TreeNode {
-	int val;
-	TreeNode *left;
-	TreeNode *right;
-	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
 class Solution08 {
 public:
 	int sumOfLeftLeaves(TreeNode* root) {
@@ -246,7 +240,7 @@ public:
 		children = _children;
 	}
 };
-class Solution {
+class Solution09 {
 public:
 	int maxDepth(Node* root) {
 		if (root == NULL) return 0;
@@ -258,5 +252,24 @@ public:
 			if (max < pre) max = pre;
 		}
 		return max + 1;
+	}
+};
+
+// 389. Find the Difference
+class Solution {
+public:
+	char findTheDifference(string s, string t) {
+		int a[26];
+		memset(a, 0, sizeof(a));
+		int len1 = s.size(), len2 = t.size();
+		for (int i = 0; i < len1; i++)
+		{
+			a[s[i] - 'a']++;
+		}
+		for (int i = 0; i < len2; i++)
+		{
+			if (a[t[i] - 'a']-- == 0) return t[i];
+		}
+		return -1;
 	}
 };
