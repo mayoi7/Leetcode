@@ -220,7 +220,7 @@ struct TreeNode {
 	TreeNode *right;
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
-class Solution {
+class Solution08 {
 public:
 	int sumOfLeftLeaves(TreeNode* root) {
 		if (root == NULL) return 0;
@@ -230,5 +230,33 @@ public:
 			return sumOfLeftLeaves(root->left) + sumOfLeftLeaves(root->right);
 		}
 		else return sumOfLeftLeaves(root->right);
+	}
+};
+
+// 559. Maximum Depth of N-ary Tree
+class Node {
+public:
+	int val;
+	vector<Node*> children;
+
+	Node() {}
+
+	Node(int _val, vector<Node*> _children) {
+		val = _val;
+		children = _children;
+	}
+};
+class Solution {
+public:
+	int maxDepth(Node* root) {
+		if (root == NULL) return 0;
+		int max = 0;
+		int pre = 0;
+		for (auto i = root->children.begin(); i < root->children.end(); i++)
+		{
+			pre = maxDepth(*i);
+			if (max < pre) max = pre;
+		}
+		return max + 1;
 	}
 };
