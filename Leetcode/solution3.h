@@ -275,7 +275,7 @@ public:
 };
 
 // 405. Convert a Number to Hexadecimal
-class Solution {
+class Solution11 {
 public:
 	char hex[16] = { '0','1','2','3', '4','5', '6','7', '8','9','a','b','c','d','e','f' };
 	string toHex(int num) {
@@ -303,5 +303,32 @@ public:
 			}
 		}
 		return s;
+	}
+};
+
+// 409. Longest Palindrome
+class Solution {
+public:
+	int longestPalindrome(string s) {
+		unordered_map<char, int> mp;	// <char, times_appeared>
+		for (auto i = s.begin(); i < s.end(); i++)
+		{
+			if (mp.find(*i) == mp.end()) {
+				mp[*i] = 1;
+			}
+			else mp[*i]++;
+		}
+
+		int ml = 0;
+		int f = 0;
+		for (auto i = mp.begin(); i != mp.end(); i++)
+		{
+			if ((i->second & 1) == 0) ml += i->second;
+			else {
+				ml += (i->second - 1);
+				f = 1;
+			}
+		}
+		return ml + f;
 	}
 };
