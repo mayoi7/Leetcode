@@ -256,7 +256,7 @@ public:
 };
 
 // 389. Find the Difference
-class Solution {
+class Solution10 {
 public:
 	char findTheDifference(string s, string t) {
 		int a[26];
@@ -271,5 +271,37 @@ public:
 			if (a[t[i] - 'a']-- == 0) return t[i];
 		}
 		return -1;
+	}
+};
+
+// 405. Convert a Number to Hexadecimal
+class Solution {
+public:
+	char hex[16] = { '0','1','2','3', '4','5', '6','7', '8','9','a','b','c','d','e','f' };
+	string toHex(int num) {
+		if (num == 0) return "0";
+		int n = num;
+		if (num < 0) n = -n;
+		string s = "";
+
+		if (num > 0) {
+			while (n) {
+				s.insert(s.begin(), hex[n % 16]);
+				n /= 16;
+			}
+		}
+		else {
+			n++;
+			while (n) {
+				s.insert(s.begin(), hex[15 - n % 16]);
+				n /= 16;
+			}
+			int i = s.size();
+			for (; i < 8; i++)
+			{
+				s.insert(s.begin(), 'f');
+			}
+		}
+		return s;
 	}
 };
