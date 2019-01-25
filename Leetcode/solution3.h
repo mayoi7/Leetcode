@@ -307,7 +307,7 @@ public:
 };
 
 // 409. Longest Palindrome
-class Solution {
+class Solution12 {
 public:
 	int longestPalindrome(string s) {
 		unordered_map<char, int> mp;	// <char, times_appeared>
@@ -330,5 +330,31 @@ public:
 			}
 		}
 		return ml + f;
+	}
+};
+
+// 414. Third Maximum Number
+class Solution {
+public:
+	int thirdMax(vector<int>& nums) {
+		priority_queue<int> nq;
+		unordered_set<int> st;
+
+		for (auto i = nums.begin(); i < nums.end(); i++)
+		{
+			st.insert(*i);
+		}
+
+		for (auto i = st.begin(); i != st.end(); i++)
+		{
+			nq.push(*i);
+		}
+
+		int mx = nq.top();
+		if (nq.size() < 3) return mx;
+
+		nq.pop();
+		nq.pop();
+		return nq.top();
 	}
 };
