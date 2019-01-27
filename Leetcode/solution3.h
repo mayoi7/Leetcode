@@ -360,7 +360,7 @@ public:
 };
 
 // 415. Add Strings
-class Solution {
+class Solution14 {
 public:
 	string addStrings(string num1, string num2) {
 		int n1 = num1.size(), n2 = num2.size();
@@ -401,5 +401,45 @@ public:
 		
 		if (c > 0) s.insert(s.begin(), '1');
 		return s;
+	}
+};
+
+// 429. N-ary Tree Level Order Traversal
+class Solution15 {
+public:
+	vector<vector<int>> levelOrder(Node* root) {
+		vector<vector<int>> res;
+		queue<Node*> q1, q2;
+
+		if (root == NULL) return res;
+		q1.push(root);
+
+		while (!q1.empty()) {
+			vector<int> vec, vec2;
+			while (!q1.empty()) {
+				Node* temp = q1.front();
+				vec.push_back(temp->val);
+				for (auto i = temp->children.begin(); i < temp->children.end(); i++)
+				{
+					q2.push(*i);
+				}
+				q1.pop();
+			}
+			if (vec.size() == 0) break;
+			res.push_back(vec);
+
+			while (!q2.empty()) {
+				Node* temp = q2.front();
+				vec2.push_back(temp->val);
+				for (auto i = temp->children.begin(); i < temp->children.end(); i++)
+				{
+					q1.push(*i);
+				}
+				q2.pop();
+			}
+			if (vec2.size() == 0) break;
+			res.push_back(vec2);
+		}
+		return res;
 	}
 };
