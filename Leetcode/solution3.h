@@ -443,3 +443,26 @@ public:
 		return res;
 	}
 };
+
+// 437. Path Sum III
+class Solution {
+public:
+	int rs = 0;	// real_sum
+	unordered_set<TreeNode*> st;
+	int pathSum2(TreeNode* root, int sum) {
+		if (root == NULL) return 0;
+		if (root->val == sum)
+			return 1 + pathSum2(root->left, 0) + pathSum2(root->right, 0);
+		return pathSum2(root->left, sum - root->val) + pathSum2(root->right, sum - root->val);
+	}
+
+	int pathSum3(TreeNode* root) {
+		if (root == NULL) return 0;
+		return pathSum2(root, rs) + pathSum3(root->left) + pathSum3(root->right);
+	}
+
+	int pathSum(TreeNode* root, int sum) {
+		rs = sum;
+		return pathSum3(root);
+	}
+};
