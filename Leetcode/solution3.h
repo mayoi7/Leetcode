@@ -445,7 +445,7 @@ public:
 };
 
 // 437. Path Sum III
-class Solution {
+class Solution16 {
 public:
 	int rs = 0;	// real_sum
 	unordered_set<TreeNode*> st;
@@ -464,5 +464,36 @@ public:
 	int pathSum(TreeNode* root, int sum) {
 		rs = sum;
 		return pathSum3(root);
+	}
+};
+
+// 113. Path Sum II
+class Solution {
+public:
+	void addPath(vector<vector<int>>& res, vector<int>& vec, TreeNode* node, int sum) {
+		if (node->left == NULL && node->right == NULL) {
+			if (sum == node->val) {
+				vec.push_back(node->val);
+				res.push_back(vec);
+			}
+			else return;
+		}
+		vec.push_back(node->val);
+		vector<int> oth(vec);
+		if (node->left != NULL) {
+			addPath(res, vec, node->left, sum - node->val);
+		}
+		if (node->right != NULL) {
+			addPath(res, oth, node->right, sum - node->val);
+		}
+	}
+
+	vector<vector<int>> pathSum(TreeNode* root, int sum) {
+		vector<vector<int>> res;
+		vector<int> vec;
+		if (root == NULL) return res;
+		
+		addPath(res, vec, root, sum);
+		return res;
 	}
 };
