@@ -334,7 +334,7 @@ public:
 };
 
 // 414. Third Maximum Number
-class Solution {
+class Solution13 {
 public:
 	int thirdMax(vector<int>& nums) {
 		priority_queue<int> nq;
@@ -356,5 +356,50 @@ public:
 		nq.pop();
 		nq.pop();
 		return nq.top();
+	}
+};
+
+// 415. Add Strings
+class Solution {
+public:
+	string addStrings(string num1, string num2) {
+		int n1 = num1.size(), n2 = num2.size();
+		int c = 0, p = n1 - 1, q = n2 - 1, n = max(n1, n2) - 1;
+		string s(n1 > n2 ? num1 : num2);
+		int t = 0;
+
+		while (p >= 0 && q >= 0) {
+			t = num1[p--] - '0' + num2[q--] - '0' + c ;
+			if (t > 9) {
+				c = 1;
+				t -= 10;
+			}
+			else c = 0;
+
+			s[n--] = (t + '0');
+		}
+
+		while (p >= 0) {
+			t = num1[p--] - '0' + c;
+			if (t > 9) {
+				c = 1;
+				t -= 10;
+			}
+			else c = 0;
+			s[n--] = (t + '0');
+		}
+
+		while (q >= 0) {
+			t = num2[q--] - '0' + c;
+			if (t > 9) {
+				c = 1;
+				t -= 10;
+			}
+			else c = 0;
+			s[n--] = (t + '0');
+		}
+		
+		if (c > 0) s.insert(s.begin(), '1');
+		return s;
 	}
 };
