@@ -499,7 +499,7 @@ public:
 };
 
 // 438. Find All Anagrams in a String
-class Solution {
+class Solution18 {
 public:
 	bool ifSame(int* a, int* b) {
 		for (int i = 'a'; i <= 'z'; i++)
@@ -541,5 +541,13 @@ public:
 			res.push_back(n1 - n2);
 		}
 		return res;
+	}
+};
+
+// 441. Arranging Coins
+class Solution {
+public:
+	int arrangeCoins(int n) {
+		return sqrt((long long)2 * n + 0.25) - 0.5;
 	}
 };
