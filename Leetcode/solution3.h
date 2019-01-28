@@ -545,9 +545,28 @@ public:
 };
 
 // 441. Arranging Coins
-class Solution {
+class Solution19 {
 public:
 	int arrangeCoins(int n) {
 		return sqrt((long long)2 * n + 0.25) - 0.5;
+	}
+};
+
+// 287. Find the Duplicate Number
+class Solution {
+public:
+	int findDuplicate(vector<int>& nums) {
+		int slow = 0, fast = 0, tar = 0;
+
+		do {
+			slow = nums[slow];
+			fast = nums[nums[fast]];
+		} while (slow != fast);
+
+		while (tar != slow) {
+			slow = nums[slow];
+			tar = nums[tar];
+		}
+		return tar;
 	}
 };
