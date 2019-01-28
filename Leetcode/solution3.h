@@ -468,7 +468,7 @@ public:
 };
 
 // 113. Path Sum II
-class Solution {
+class Solution17 {
 public:
 	void addPath(vector<vector<int>>& res, vector<int>& vec, TreeNode* node, int sum) {
 		if (node->left == NULL && node->right == NULL) {
@@ -494,6 +494,52 @@ public:
 		if (root == NULL) return res;
 		
 		addPath(res, vec, root, sum);
+		return res;
+	}
+};
+
+// 438. Find All Anagrams in a String
+class Solution {
+public:
+	bool ifSame(int* a, int* b) {
+		for (int i = 'a'; i <= 'z'; i++)
+		{
+			if (a[i] != b[i]) return false;
+		}
+		return true;
+	}
+
+	vector<int> findAnagrams(string s, string p) {
+		int n1 = s.size(), n2 = p.size();
+		vector<int> res;
+		if (n2 > n1) return res;
+
+		int ch[255];
+		memset(ch, 0, sizeof(ch));
+
+		for (int i = 0; i < n2; i++)
+		{
+			ch[p[i]]++;
+		}
+		int cp[255];
+		memset(cp, 0, sizeof(ch));
+
+		for (int i = 0; i < n2; i++)
+		{
+			cp[s[i]]++;
+		}
+		
+		for (int i = n2; i < n1; i++)
+		{
+			if (ifSame(ch, cp)) {
+				res.push_back(i - n2);
+			}
+			--cp[s[i - n2]];
+			++cp[s[i]];
+		}
+		if (ifSame(ch, cp)) {
+			res.push_back(n1 - n2);
+		}
 		return res;
 	}
 };
