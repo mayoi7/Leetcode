@@ -572,7 +572,7 @@ public:
 };
 
 // 459. Repeated Substring Pattern
-class Solution {
+class Solution21 {
 public:
 	bool testIfCan(string s, int t, int times) {
 		int j = 0, p = 0;
@@ -605,5 +605,36 @@ public:
 			if (s[i] != s[i - 1]) return false;
 		}
 		return true;
+	}
+};
+
+// 557. Reverse Words in a String III
+class Solution {
+public:
+	void reversePartition(string& s, int i, int j) {
+		int m = (i + j) / 2;
+		char ch;
+
+		for (int k = i; k <= m; k++)
+		{
+			swap(s[k], s[j - k + i]);
+		}
+	}
+
+	string reverseWords(string s) {
+		int n = s.size();
+		if (n <= 1) return s;
+		string t(s);
+		int p = 0;
+
+		for (int i = 0; i < n; i++)
+		{
+			if (t[i] == ' ') {
+				reversePartition(t, p, i - 1);
+				p = i + 1;
+			}
+		}
+		if (s[n - 1] != ' ') reversePartition(t, p, n - 1);
+		return t;
 	}
 };
