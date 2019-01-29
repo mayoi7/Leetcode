@@ -553,7 +553,7 @@ public:
 };
 
 // 287. Find the Duplicate Number
-class Solution {
+class Solution20 {
 public:
 	int findDuplicate(vector<int>& nums) {
 		int slow = 0, fast = 0, tar = 0;
@@ -568,5 +568,42 @@ public:
 			tar = nums[tar];
 		}
 		return tar;
+	}
+};
+
+// 459. Repeated Substring Pattern
+class Solution {
+public:
+	bool testIfCan(string s, int t, int times) {
+		int j = 0, p = 0;
+
+		for (int i = 0; times - i > 1; i++)
+		{
+			p += t;
+			for (int j = 0; j < t; j++)
+			{
+				if (s[j] != s[p + j]) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	bool repeatedSubstringPattern(string s) {
+		int n = s.size();
+		int len = n / 2;
+
+		while (len > 1) {
+			if (n % len == 0) {
+				if (testIfCan(s, len, n / len)) return true;
+			}
+			--len;
+		}
+		for (int i = 1; i < n; i++)
+		{
+			if (s[i] != s[i - 1]) return false;
+		}
+		return true;
 	}
 };
