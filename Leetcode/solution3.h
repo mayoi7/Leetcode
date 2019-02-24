@@ -609,7 +609,7 @@ public:
 };
 
 // 557. Reverse Words in a String III
-class Solution {
+class Solution22 {
 public:
 	void reversePartition(string& s, int i, int j) {
 		int m = (i + j) / 2;
@@ -636,5 +636,17 @@ public:
 		}
 		if (s[n - 1] != ' ') reversePartition(t, p, n - 1);
 		return t;
+	}
+};
+
+// 476. Number Complement
+class Solution {
+public:
+	int findComplement(int num) {
+		long r = 1;
+		do {
+			if (r > num) return r - num - 1;
+			r <<= 1;
+		} while (true);
 	}
 };
