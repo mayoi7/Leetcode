@@ -640,7 +640,7 @@ public:
 };
 
 // 476. Number Complement
-class Solution {
+class Solution23 {
 public:
 	int findComplement(int num) {
 		long r = 1;
@@ -648,5 +648,41 @@ public:
 			if (r > num) return r - num - 1;
 			r <<= 1;
 		} while (true);
+	}
+};
+
+// 482. License Key Formatting
+class Solution {
+public:
+	string licenseKeyFormatting(string S, int K) {
+		int size = S.size();
+		string s(S);
+		int len = 0;
+		transform(S.begin(), S.end(), S.begin(), ::toupper);
+		for (int i = 0; i < size; i++)
+		{
+			if (S[i] == '-') continue;
+			s[len++] = S[i];
+		}
+		int fst = len % K;
+		if (fst == 0) fst = K;
+
+		string res = "";
+		int p = 0;
+
+		for (int i = 0; i < fst && i < len; i++)
+		{
+			res += s[p++];
+		}
+
+		while(p < len)
+		{
+			res += '-';
+			for (int j = 0; j < K; j++)
+			{
+				res += s[p++];
+			}
+		}
+		return res;
 	}
 };
