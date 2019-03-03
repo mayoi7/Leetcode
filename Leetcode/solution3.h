@@ -652,7 +652,7 @@ public:
 };
 
 // 482. License Key Formatting
-class Solution {
+class Solution24 {
 public:
 	string licenseKeyFormatting(string S, int K) {
 		int size = S.size();
@@ -684,5 +684,23 @@ public:
 			}
 		}
 		return res;
+	}
+};
+
+// 485. Max Consecutive Ones
+class Solution {
+public:
+	int findMaxConsecutiveOnes(vector<int>& nums) {
+		int crt = 0, mx = 0;
+		for (int i = 0; i < nums.size(); i++)
+		{
+			if (nums[i] == 1) ++crt;
+			else {
+				if (crt - mx > 0) mx = crt;
+				crt = 0;
+			}
+		}
+		if (crt - mx > 0) mx = crt;
+		return mx;
 	}
 };
