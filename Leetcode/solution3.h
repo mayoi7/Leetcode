@@ -706,7 +706,7 @@ public:
 };
 
 // 492. Construct the Rectangle
-class Solution {
+class Solution26 {
 public:
 	vector<int> constructRectangle(int area) {
 		int p = 1, q = area;
@@ -720,5 +720,40 @@ public:
 			q = (area / p);
 		}
 		return res;
+	}
+};
+
+// 279. Perfect Squares
+class Solution {
+public:
+	int a[2050] = { 0 };
+	int b[20000] = { 0,1,2,3,1 };
+
+	int getSquares(int n) {
+		if (b[n] != 0) return b[n];
+
+		int sq = sqrt(n);
+		if (a[sq] == n) return 1;
+		int num = 0;
+		int crt = 0, mn = n;
+		for (int i = sq; i > 0; i--)
+		{
+			crt = getSquares(n - a[i]);
+			if (crt < mn) mn = crt;
+		}
+		b[n] = crt + 1;
+		return mn + 1;
+	}
+
+	int numSquares(int n) {
+		int sq = sqrt(n);
+		if (sq * sq == n) return 1;
+
+		for (int i = 1; i <= sq; i++)
+		{
+			a[i] = i * i;
+		}
+		memset(b, 0, sizeof(b));
+		return getSquares(n);
 	}
 };
