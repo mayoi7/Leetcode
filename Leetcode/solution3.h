@@ -724,7 +724,7 @@ public:
 };
 
 // 279. Perfect Squares
-class Solution {
+class Solution27 {
 public:
 	int a[2050] = { 0 };
 	int b[20000] = { 0,1,2,3,1 };
@@ -755,5 +755,67 @@ public:
 		}
 		memset(b, 0, sizeof(b));
 		return getSquares(n);
+	}
+};
+
+// 496. Next Greater Element I
+class Solution {
+public:
+	vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) {
+		int len1 = findNums.size(), len2 = nums.size();
+		if (len2 == 1) return { -1 };
+		else if (len2 == 0) return {};
+		if (len1 == 0) return {};
+
+		vector<int> res;
+		vector<int> a(nums);
+
+		unordered_map<int, int> mp;
+
+		for (int i = 0; i < len2; i++)
+		{
+			a[i] = i;
+			auto key = find(findNums.begin(), findNums.end(), nums[i]);
+			if (key != findNums.end()) {
+				// ÕÒµ½ÔªËØ
+				mp[*key] = i;
+			}
+		}
+
+		int p = -1;
+		for (int i = len2 - 2; i >= 0; i--)
+		{
+			if (nums[i] < nums[i + 1]) {
+				a[i] = i + 1;
+			} else {
+				p = i + 1;
+				while (p != a[p]) {
+					if (nums[i] < nums[a[p]]) {
+						a[i] = a[p];
+						break;
+					}
+					p = a[p];
+
+					if (p < len2 - 1);
+					else if (p >= len2) break;
+					else {
+						if (nums[i] < nums[len2 - 1]) {
+							a[i] = len2 - 1;
+						} else {
+							break;
+						}
+					}
+				}
+			}
+		}
+		int site = 0;
+		for (int i = 0; i < len1; i++)
+		{
+			site = mp[findNums[i]];
+			if (a[site] == site) res.push_back(-1);
+			else res.push_back(nums[a[site]]);
+		}
+
+		return res;
 	}
 };
