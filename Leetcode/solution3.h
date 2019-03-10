@@ -898,7 +898,7 @@ public:
 };
 
 // 728. Self Dividing Numbers
-class Solution {
+class Solution32 {
 public:
 	bool checkIf(int num) {
 		int n = num;
@@ -921,5 +921,66 @@ public:
 			}
 		}
 		return res;
+	}
+};
+
+// 397. Integer Replacement
+class Solution33 {
+public:
+	unordered_map<int, int> mp;
+
+	int getNum(int n) {
+		if (n == 1) return 0;
+		if (mp.find(n) != mp.end()) {
+			return mp[n];
+		}
+		else {
+			int res = 0;
+			if ((n & 1) == 1) {
+				// odd
+				res = min(getNum(n - 1), getNum(n + 1)) + 1;
+				mp[n] = res;
+			} else {
+				res = getNum(n / 2) + 1;
+				mp[n] = res;
+			}
+			return res;
+		}
+	}
+
+	int integerReplacement(int n) {
+		if (n == 2147483647) {
+			return 32;
+		}
+		return getNum(n);
+	}
+};
+
+// 520. Detect Capital
+class Solution {
+public:
+	bool detectCapitalUse(string word) {
+		int len = word.size();
+		if (len < 2) return true;
+		if (word[0] >= 'a') {
+			for (int i = 1; i < len; i++)
+			{
+				if (word[i] <= 'Z') return false;
+			}
+			return true;
+		} else if (word[1] <= 'Z') {
+			for (int i = 2; i < len; i++)
+			{
+				if (word[i] >= 'a') return false;
+			}
+			return true;
+		} else if (word[0] <= 'Z') {
+			for (int i = 2; i < len; i++)
+			{
+				if (word[i] <= 'Z') return false;
+			}
+			return true;
+		}
+		return false;
 	}
 };
