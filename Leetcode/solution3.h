@@ -986,7 +986,7 @@ public:
 };
 
 // 541. Reverse String II
-class Solution {
+class Solution35 {
 public:
 	void reverseStr(string& s, int i, int j) {
 		while (i < j) {
@@ -1012,5 +1012,28 @@ public:
 			reverseStr(s, len - t2, len - 1);
 		}
 		return s;
+	}
+};
+
+// 893. Groups of Special-Equivalent Strings
+class Solution {
+public:
+	int numSpecialEquivGroups(vector<string>& A) {
+		unordered_map<string, int> mp;
+		for (auto s : A) {
+			string even = "", odd = "";
+			for (int i = 0; i < s.size(); i += 2)
+			{
+				even.push_back(s[i]);
+			}
+			for (int i = 1; i < s.size(); i += 2)
+			{
+				odd.push_back(s[i]);
+			}
+			sort(even.begin(), even.end());
+			sort(odd.begin(), odd.end());
+			mp[even + odd]++;
+		}
+		return mp.size();
 	}
 };
