@@ -873,7 +873,7 @@ public:
 };
 
 // 507. Perfect Number
-class Solution {
+class Solution31 {
 public:
 	bool checkPerfectNumber(int num) {
 		int i = 2;
@@ -894,5 +894,32 @@ public:
 		}
 
 		return sum == num;
+	}
+};
+
+// 728. Self Dividing Numbers
+class Solution {
+public:
+	bool checkIf(int num) {
+		int n = num;
+		int k = 0;
+		while (n) {
+			k = n % 10;
+			if (k == 0) return false;
+			if (num % k != 0) return false;
+			n /= 10;
+		}
+		return true;
+	}
+
+	vector<int> selfDividingNumbers(int left, int right) {
+		vector<int> res;
+		for (int i = left; i < right; i++)
+		{
+			if (checkIf(i)) {
+				res.push_back(i);
+			}
+		}
+		return res;
 	}
 };
