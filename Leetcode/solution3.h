@@ -759,7 +759,7 @@ public:
 };
 
 // 496. Next Greater Element I
-class Solution {
+class Solution28 {
 public:
 	vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) {
 		int len1 = findNums.size(), len2 = nums.size();
@@ -816,6 +816,33 @@ public:
 			else res.push_back(nums[a[site]]);
 		}
 
+		return res;
+	}
+};
+
+// 504. Base 7
+class Solution29 {
+public:
+	string convertToBase7(int num) {
+		string res = "";
+
+		bool flag = false;
+		if (num < 0) {
+			flag = true;
+			num = -num;
+		}
+		if (num < 7) {
+			res += to_string(num);
+			if (flag) res = "-" + res;
+			return res;
+		}
+
+		int rem = 0;
+		while (num) {
+			res.insert(res.begin(), (num % 7) + '0');
+			num /= 7;
+		}
+		if (flag) res = "-" + res;
 		return res;
 	}
 };
