@@ -848,7 +848,7 @@ public:
 };
 
 // 506. Relative Ranks
-class Solution {
+class Solution30 {
 public:
 	vector<string> findRelativeRanks(vector<int>& nums) {
 		priority_queue<int> pri;
@@ -869,5 +869,30 @@ public:
 			pri.pop();
 		}
 		return res;
+	}
+};
+
+// 507. Perfect Number
+class Solution {
+public:
+	bool checkPerfectNumber(int num) {
+		int i = 2;
+		long sum = 1;
+		int lim = num / 2 + 1;
+		int mx = num / 2;
+		int k = 0;
+		for (int i = 2; i < lim; i++)
+		{
+			if (i == mx) break;
+			if (num % i == 0) {
+				k = num / i;
+				if (k - i > 0) mx = k;
+				sum += (i + k); 
+				if (sum > num) return false;
+			}
+			
+		}
+
+		return sum == num;
 	}
 };
