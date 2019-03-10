@@ -957,7 +957,7 @@ public:
 };
 
 // 520. Detect Capital
-class Solution {
+class Solution34 {
 public:
 	bool detectCapitalUse(string word) {
 		int len = word.size();
@@ -982,5 +982,35 @@ public:
 			return true;
 		}
 		return false;
+	}
+};
+
+// 541. Reverse String II
+class Solution {
+public:
+	void reverseStr(string& s, int i, int j) {
+		while (i < j) {
+			swap(s[i], s[j]);
+			i++;
+			j--;
+		}
+	}
+
+	string reverseStr(string s, int k) {
+		int m = 2 * k;
+		int len = s.size();
+		int t1 = len / m;
+		int t2 = len % m;
+		for (int i = 0; i < t1; i++)
+		{
+			reverseStr(s, i*m, i*m + k - 1);
+		}
+		if (t2 >= k) {
+			reverseStr(s, len - t2, len - t2 + k - 1);
+		}
+		else {
+			reverseStr(s, len - t2, len - 1);
+		}
+		return s;
 	}
 };
