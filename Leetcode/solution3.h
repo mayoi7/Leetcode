@@ -846,3 +846,28 @@ public:
 		return res;
 	}
 };
+
+// 506. Relative Ranks
+class Solution {
+public:
+	vector<string> findRelativeRanks(vector<int>& nums) {
+		priority_queue<int> pri;
+		unordered_map<int, int> mp;
+		vector<string> res(nums.size());
+		for (int i = 0; i < nums.size(); i++)
+		{
+			mp[nums[i]] = i;
+			pri.push(nums[i]);
+		}
+		int rank = 1;
+		while (!pri.empty()) {
+			if (rank == 1) res[mp[pri.top()]] = "Gold Medal";
+			else if(rank == 2) res[mp[pri.top()]] = "Silver Medal";
+			else if (rank == 3) res[mp[pri.top()]] = "Bronze Medal";
+			else res[mp[pri.top()]] = to_string(rank);
+			++rank;
+			pri.pop();
+		}
+		return res;
+	}
+};
