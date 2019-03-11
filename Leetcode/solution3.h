@@ -1016,7 +1016,7 @@ public:
 };
 
 // 893. Groups of Special-Equivalent Strings
-class Solution {
+class Solution36 {
 public:
 	int numSpecialEquivGroups(vector<string>& A) {
 		unordered_map<string, int> mp;
@@ -1035,5 +1035,56 @@ public:
 			mp[even + odd]++;
 		}
 		return mp.size();
+	}
+};
+
+// 522. Longest Uncommon Subsequence II
+class Solution {
+public:
+	struct cmp {
+		bool operator()(const string x,const string y) {
+			return x.size() < y.size();
+		}
+	};
+
+	bool validIf(string a, string b) {
+		int l1 = a.size(), l2 = b.size();
+		int p = 0, q = 0;
+		while (p < l1 && q < l2) {
+			if (b[q] == a[p++]) {
+				++q;
+			}
+		}
+		return q < l2;
+	}
+
+	int findLUSlength(vector<string>& strs) {
+		int len = strs.size();
+		if (len == 1) return strs[0].size();
+		priority_queue<string, vector<string>, cmp> pq;
+		unordered_map<string, int> mp;
+		for (int i = 0; i < len; i++)
+		{
+			pq.push(strs[i]);
+			if(mp.find(strs[i]) == mp.end()) mp[strs[i]] = 1;
+			else mp[strs[i]]++;
+		}
+		string s = pq.top();
+		pq.pop();
+		if (mp[s] == 1) return s.size();
+		while (!pq.empty()) {
+			string t(pq.top());
+			pq.pop();
+			if (t.size() == s.size()) {
+				if (mp[t] == 1) return s.size();
+			}
+			else if (t.size() < s.size()) {
+				if (validIf(s, t) && (pq.empty() || mp[t] == 1)) {
+					return t.size();
+				}
+				s = t;
+			}
+		}
+		return -1;
 	}
 };
