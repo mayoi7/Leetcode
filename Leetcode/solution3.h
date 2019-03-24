@@ -1155,7 +1155,7 @@ public:
 };
 
 // 532. K-diff Pairs in an Array
-class Solution {
+class Solution40 {
 public:
 	int findPairs(vector<int>& nums, int k) {
 		if (k < 0) return 0;
@@ -1186,5 +1186,26 @@ public:
 			}
 		}
 		return ans;
+	}
+};
+
+// 561. Array Partition I
+class Solution {
+public:
+	int arrayPairSum(vector<int>& nums) {
+		priority_queue<int> qe;
+		
+		for (int i : nums) {
+			qe.push(i);
+		}
+
+		int max = 0;
+
+		while (!qe.empty()) {
+			qe.pop();
+			max += qe.top();
+			qe.pop();
+		}
+		return max;
 	}
 };
