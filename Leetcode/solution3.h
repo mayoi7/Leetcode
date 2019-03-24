@@ -1129,7 +1129,7 @@ public:
 };
 
 // 530. Minimum Absolute Difference in BST
-class Solution {
+class Solution39 {
 public:
 	vector<int> res;
 
@@ -1151,5 +1151,40 @@ public:
 			if (min == 1) return min;
 		}
 		return min;
+	}
+};
+
+// 532. K-diff Pairs in an Array
+class Solution {
+public:
+	int findPairs(vector<int>& nums, int k) {
+		if (k < 0) return 0;
+		map<int, int> mp;	// <num, times>
+
+		for (auto i = nums.begin(); i != nums.end(); i++)
+		{
+			if (mp.find(*i) != mp.end()) {
+				mp[*i]++;
+			}
+			else mp[*i] = 1;
+		}
+		int ans = 0;
+
+		if (k == 0) {
+			for (auto i = mp.begin(); i != mp.end(); i++)
+			{
+				if (i->second >= 2) ++ans;
+			}
+			return ans;
+		}
+
+		for (auto i = mp.begin(); i != mp.end(); i++)
+		{
+			if (mp.find(i->first + k) != mp.end()) {
+				// exist
+				++ans;
+			}
+		}
+		return ans;
 	}
 };
