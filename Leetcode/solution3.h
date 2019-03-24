@@ -1039,7 +1039,7 @@ public:
 };
 
 // 522. Longest Uncommon Subsequence II
-class Solution {
+class Solution37 {
 public:
 	struct cmp {
 		bool operator()(const string x,const string y) {
@@ -1086,5 +1086,70 @@ public:
 			}
 		}
 		return -1;
+	}
+};
+
+// 1137
+class Solution38 {
+public:
+	vector<vector<string>> res;
+
+	bool valid(string s, int i, int j) {
+		while (i < j) {
+			if (s[i--] != s[j--]) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	void once(string s, int idx, vector<string>& a) {
+		int len = s.size();
+
+		if (idx == len) {
+			res.emplace_back(vector<string>(a));
+			return;
+		}
+		string t;
+		for (int i = idx; i < len; i++)
+		{
+			if (valid(s, idx, i)) {
+				a.emplace_back(s.substr(idx, i - idx + 1));
+				once(s, i + 1, a);
+				a.pop_back();
+			}
+		}
+	}
+
+	vector<vector<string>> partition(string s) {
+		vector<string> t;
+		once(s, 0, t);
+		return res;
+	}
+};
+
+// 530. Minimum Absolute Difference in BST
+class Solution {
+public:
+	vector<int> res;
+
+	void putVal(TreeNode* node) {
+		if (node->left != nullptr) putVal(node->left);
+		res.emplace_back(node->val);
+		if (node->right != nullptr) putVal(node->right);
+	}
+
+	int getMinimumDifference(TreeNode* root) {
+		int min = INT_MAX;
+		putVal(root);
+		int len = res.size();
+		for (int i = 1; i < len; i++)
+		{
+			if (min > res[i] - res[i - 1]) {
+				min = res[i] - res[i - 1];
+			}
+			if (min == 1) return min;
+		}
+		return min;
 	}
 };
